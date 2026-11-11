@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://wingkey-ai.github.io/wingkey-classbook/sitemap.xml
