@@ -294,7 +294,11 @@ footer .biz{font-size:12.5px;line-height:1.8;color:rgba(255,255,255,.62);margin:
 .lnote{font-size:12px;color:var(--charcoal,#454b54);margin-top:12px}
 .vlistenbtn{font:inherit;font-weight:700;font-size:13.5px;border:1px solid var(--navy,#032451);background:#fff;color:var(--navy,#032451);border-radius:10px;min-height:40px;padding:0 14px;cursor:pointer}
 .vlistenbtn[aria-pressed=true]{background:var(--navy,#032451);color:#fff}
-@media (max-width:560px){.lwords{grid-template-columns:1fr}.lplay{margin-left:0;width:100%}.lzh{font-size:17px}.vfoot{gap:6px}.vlistenbtn{flex:1}}
+.vstage[hidden]{display:none}
+.vbox.listen{height:96vh}
+.vbox.listen .vdots{display:none}
+.vlistenbtn{white-space:nowrap}
+@media (max-width:560px){.lwords{grid-template-columns:1fr}.lplay{margin-left:0;width:100%}.lzh{font-size:17px}.vfoot{gap:8px}.vdots{flex:0 0 100%}.vlistenbtn{flex:1;min-height:44px}#vApply{flex:1 1 0!important;min-height:44px}.viewer{padding:8px}.vbox{max-height:98vh}.vbox.listen{height:98vh}}
 </style>
 </head>
 <body>
@@ -766,7 +770,7 @@ try{
       <div id="lBody"></div>
       <p class="lnote">원어민 음성(여성·남성)으로 Unit 1 본문 대화와 새 단어를 들려 드립니다. 줄을 누르면 그 문장만 다시 들을 수 있어요. 역할별은 대화의 두 사람을 여성·남성 목소리로 나눠 읽습니다.</p>
     </div>
-    <div class="vfoot"><div class="vdots" id="vDots"></div><button type="button" class="vlistenbtn" id="vListenBtn" aria-pressed="false">듣기 · 본문·새 단어</button><button class="btn pri sm" id="vApply" style="flex:0 0 auto">이 교재로 신청</button></div>
+    <div class="vfoot"><div class="vdots" id="vDots"></div><button type="button" class="vlistenbtn" id="vListenBtn" aria-pressed="false">▶ 원어민 듣기</button><button class="btn pri sm" id="vApply" style="flex:0 0 auto">이 교재로 신청</button></div>
     <audio id="lAudio" preload="none" playsinline></audio>
   </div>
 </div>
@@ -803,7 +807,7 @@ let vBook=null, vPage=0, vLast=null;
 function vShow(i){ vPage=(i+4)%4; $('#vImg').src=`b-${vBook.id}-p${vPage+1}.webp`; $('#vImg').alt=`${vBook.title} ${PAGE_NAMES[vPage]}`;
   $('#vDots').innerHTML=PAGE_NAMES.map((n,k)=>`<button aria-current="${k===vPage}" data-p="${k}">${n}</button>`).join(''); }
 function vOpen(id, listen){ vBook=CATALOG.find(b=>b.id===id); if(!vBook) return; $('#vListenBtn').hidden=!(typeof AUDIO==='object' && AUDIO[vBook.id]); $('#lAudio').removeAttribute('src'); vLast=document.activeElement; $('#vTitle').textContent=`${vBook.title} · 샘플`; $('#viewer').hidden=false; document.body.style.overflow='hidden'; vShow(0); $('#vClose').focus(); history.replaceState(null,'',`#book=${id}`); }
-function vClose(){ if(typeof lStop==='function') lStop(); $('#vListen').hidden=true; $('#vStage').hidden=false; $('#vListenBtn').setAttribute('aria-pressed','false'); $('#viewer').hidden=true; document.body.style.overflow=''; history.replaceState(null,'',location.pathname+location.search); if(vLast) vLast.focus(); }
+function vClose(){ if(typeof lStop==='function') lStop(); $('#vListen').hidden=true; $('#vStage').hidden=false; $('#vListenBtn').setAttribute('aria-pressed','false'); $('#vListenBtn').textContent='▶ 원어민 듣기'; document.querySelector('.vbox').classList.remove('listen'); $('#viewer').hidden=true; document.body.style.overflow=''; history.replaceState(null,'',location.pathname+location.search); if(vLast) vLast.focus(); }
 function pickBook(id){
   const b=CATALOG.find(x=>x.id===id); if(!b) return;
   if(!$('#viewer').hidden) vClose();
@@ -836,7 +840,7 @@ function lPlay(i){
 function lNext(){ if(lSeq===null) return lStop(); const order=lSeq; const k=order.indexOf(lCur); if(k<0||k+1>=order.length) return lStop(); setTimeout(()=>{ if(lSeq) lPlay(order[k+1]); }, 350); }
 function lToggle(on){
   const show = on ?? $('#vListen').hidden;
-  $('#vListen').hidden=!show; $('#vStage').hidden=show; $('#vListenBtn').setAttribute('aria-pressed',String(show));
+  $('#vListen').hidden=!show; $('#vStage').hidden=show; $('#vListenBtn').setAttribute('aria-pressed',String(show)); $('#vListenBtn').textContent= show ? '← 교재 쪽 보기' : '▶ 원어민 듣기'; document.querySelector('.vbox').classList.toggle('listen',show);
   if(show){ lRender(); } else lStop();
 }
 if (typeof AUDIO==='object') {
