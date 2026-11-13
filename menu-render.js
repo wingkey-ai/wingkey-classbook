@@ -18,7 +18,7 @@
     veg: ['素食', '#4F8A3C'], alcohol: ['含酒精', '#6B4FA0'], best: ['人气', '#E63946'], sig: ['招牌', '#B4532A'], new: ['新品', '#0E9F8E'],
     share2: ['2人份', '#555'], peanut: ['含坚果', '#9A6A1F']
   };
-  const PAY = { alipay: '支付宝 Alipay', wechat: '微信支付 WeChat Pay', unionpay: '银联 UnionPay', card: '刷卡 Card', cash: '现金 Cash' };
+  const PAY = { alipay: '支付宝', wechat: '微信支付', unionpay: '银联卡', card: '刷卡', cash: '现金' };
   const PHRASES = [['不要辣', '안 맵게 해 주세요'], ['少一点辣', '덜 맵게 해 주세요'], ['可以打包吗？', '포장돼요?'], ['买单', '계산할게요'], ['再来一份', '하나 더 주세요'], ['我要这个', '이걸로 주세요']];
   const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const won = p => (p === '' || p == null) ? '' : (p === 0 || p === '0') ? '免费 무료' : (typeof p === 'number' || /^\d+$/.test(String(p))) ? '₩' + Number(p).toLocaleString('en-US') : esc(p);
@@ -62,7 +62,7 @@ body{margin:0;font-family:"Noto Sans SC","Noto Sans KR",sans-serif;color:${t.ink
 .pay{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}.pay i{font-style:normal;border:1px solid ${t.line === '#161616' ? '#161616' : A};border-radius:99px;padding:1px 8px;font-size:10.5px;font-weight:700}
 .phr{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px}.phr div b{font-size:12px}.phr div span{color:${t.sub};font-size:10.5px;margin-left:5px}
 .fn{margin-top:10px;font-size:9.5px;color:${t.sub};text-align:center}
-${langs.includes('en') ? '' : '.en{display:none}'}
+.en{display:none}
 @media (max-width:600px){.hd h1{font-size:26px}.fe{grid-template-columns:1fr}.gr{grid-template-columns:1fr 1fr}.ls{columns:1}.ft{grid-template-columns:1fr}body{padding:10px}}
 @media screen{body{padding:18px}}`;
   }
@@ -78,10 +78,10 @@ ${langs.includes('en') ? '' : '.en{display:none}'}
   function tags(it) { return (it.tags || []).filter(t => TAGS[t]).map(t => `<i style="background:${TAGS[t][1]}">${TAGS[t][0]}</i>`).join(''); }
   function card(it, n, images, preview) {
     const d = it.desc || {};
-    return `<div class="it"><span class="no">${n}</span>${photo(it, images, preview)}<div class="bd"><div class="nm"><div><div class="zh">${zhName(it, preview)}</div><div class="kn">${esc(it.ko)}</div><div class="en">${esc(it.en || '')}</div></div><div class="pr">${won(it.price)}${it.unit && it.unit.zh ? `<div class="kn" style="text-align:right">${esc(it.unit.zh)}</div>` : ''}</div></div>${d.zh || d.ko ? `<div class="ds">${esc(d.zh || '')}<small>${esc(d.ko || '')}</small></div>` : ''}${(it.tags || []).length ? `<div class="tgs">${tags(it)}</div>` : ''}</div></div>`;
+    return `<div class="it"><span class="no">${n}</span>${photo(it, images, preview)}<div class="bd"><div class="nm"><div><div class="zh">${zhName(it, preview)}</div><div class="kn">${esc(it.ko)}</div></div><div class="pr">${won(it.price)}${it.unit && it.unit.zh ? `<div class="kn" style="text-align:right">${esc(it.unit.zh)}</div>` : ''}</div></div>${d.zh || d.ko ? `<div class="ds">${esc(d.zh || '')}<small>${esc(d.ko || '')}</small></div>` : ''}${(it.tags || []).length ? `<div class="tgs">${tags(it)}</div>` : ''}</div></div>`;
   }
   function row(it, n, preview) {
-    return `<div class="li"><span class="n">${n}</span><div><span class="zh">${zhName(it, preview)}</span> <span class="kn">${esc(it.ko)}</span> <span class="en">${esc(it.en || '')}</span></div><span class="pr">${won(it.price)}</span>${(it.tags || []).length || (it.desc && it.desc.zh) ? `<div class="sub">${it.desc && it.desc.zh ? `<span class="ds" style="margin:0">${esc(it.desc.zh)} <small style="display:inline">${esc(it.desc.ko || '')}</small></span>` : ''} <span class="tgs" style="display:inline-flex;margin:2px 0 0">${tags(it)}</span></div>` : ''}</div>`;
+    return `<div class="li"><span class="n">${n}</span><div><span class="zh">${zhName(it, preview)}</span> <span class="kn">${esc(it.ko)}</span></div><span class="pr">${won(it.price)}</span>${(it.tags || []).length || (it.desc && it.desc.zh) ? `<div class="sub">${it.desc && it.desc.zh ? `<span class="ds" style="margin:0">${esc(it.desc.zh)} <small style="display:inline">${esc(it.desc.ko || '')}</small></span>` : ''} <span class="tgs" style="display:inline-flex;margin:2px 0 0">${tags(it)}</span></div>` : ''}</div>`;
   }
 
   function renderMenu(m, opt) {
@@ -98,7 +98,7 @@ ${langs.includes('en') ? '' : '.en{display:none}'}
         const ph = items.filter(i => i.img || i.imgWait), tx = items.filter(i => !(i.img || i.imgWait));
         body = (ph.length ? `<div class="${lay === 'auto-feature' && ph.length <= 2 ? 'fe' : 'gr'}">${ph.map(i => card(i, ++n, images, preview)).join('')}</div>` : '') + (tx.length ? `<div class="ls" style="margin-top:${ph.length ? 10 : 0}px">${tx.map(i => row(i, ++n, preview)).join('')}</div>` : '');
       } else body = lay === 'list' ? `<div class="ls">${items.map(i => row(i, ++n, preview)).join('')}</div>` : `<div class="${lay === 'feature' ? 'fe' : 'gr'}">${items.map(i => card(i, ++n, images, preview)).join('')}</div>`;
-      return `<section class="sec"><div class="st"><h2>${esc(s.zh || s.ko)}</h2><span>${esc(s.ko || '')}${s.en && langs.includes('en') ? ' · ' + esc(s.en) : ''}</span></div>${body}</section>`;
+      return `<section class="sec"><div class="st"><h2>${esc(s.zh || s.ko)}</h2><span>${esc(s.ko || '')}</span></div>${body}</section>`;
     }).join('');
     const origin = (info.origin || []).filter(o => o.ko || o.zh);
     const pay = (info.pay || []).filter(p => PAY[p]);
@@ -107,7 +107,7 @@ ${langs.includes('en') ? '' : '.en{display:none}'}
     const notes = [anyImg || anyAi ? '图片仅供参考，请以实物为准 · 사진은 참고용입니다' : '', anyAi ? '标有“示意图 · AI”的图片为AI生成的示意图 · "示意图 · AI" 표시 사진은 AI로 만든 예시 이미지입니다' : '', '价格单位：韩元(₩)，含增值税 · 가격은 부가세 포함 원화 기준'].filter(Boolean);
     const fonts = 'family=Noto+Sans+KR:wght@400;700;800&family=Noto+Sans+SC:wght@400;700;800' + (t.serif ? '&family=Noto+Serif+KR:wght@700;800&family=Noto+Serif+SC:wght@700;800' : '');
     return `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(meta.storeZh || meta.store)} 菜单 · ${esc(meta.store)} 중국어 메뉴판</title><link href="https://fonts.googleapis.com/css2?${fonts}&display=swap" rel="stylesheet"><style>${css(t, meta.accent, langs)}</style></head><body><div class="mn">
-<header class="hd">${meta.sample ? '<span class="smp">制作示例 · 虚拟店铺 / 제작 예시 · 가상 매장</span>' : ''}<div class="wel">欢迎光临 · WELCOME</div><h1>${esc(meta.storeZh || meta.store)}</h1><div class="ko">${esc(meta.store)}${meta.storeEn && langs.includes('en') ? ' · ' + esc(meta.storeEn) : ''}</div>${meta.tagline && (meta.tagline.zh || meta.tagline.ko) ? `<div class="tg">${[meta.tagline.zh, meta.tagline.ko].filter(Boolean).map(esc).join(' · ')}</div>` : ''}</header>
+<header class="hd">${meta.sample ? '<span class="smp">制作示例 · 虚拟店铺 / 제작 예시 · 가상 매장</span>' : ''}<div class="wel">欢迎光临</div><h1>${esc(meta.storeZh || meta.store)}</h1><div class="ko">${esc(meta.store)}</div>${meta.tagline && (meta.tagline.zh || meta.tagline.ko) ? `<div class="tg">${[meta.tagline.zh, meta.tagline.ko].filter(Boolean).map(esc).join(' · ')}</div>` : ''}</header>
 <div class="how"><b>点餐方法</b>请告诉店员菜品编号 · 메뉴 번호로 주문하실 수 있어요</div>
 ${secs}
 <div class="ft">${left}${right}</div>
