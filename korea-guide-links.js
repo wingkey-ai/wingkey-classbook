@@ -1,0 +1,9 @@
+(function(root){
+const paths={common:'/ko/industry/common/',restaurant:'/ko/industry/restaurant/',cafe:'/ko/industry/cafe/',cosmetics:'/ko/industry/cosmetics/',fashion:'/ko/industry/fashion/',convenience:'/ko/industry/convenience/',hotel:'/ko/industry/hotel/',attraction:'/ko/industry/attraction/',taxi:'/ko/industry/taxi/',market:'/ko/industry/market/',pharmacy:'/ko/industry/pharmacy/',beauty:'/ko/industry/beauty/',clinic:'/ko/industry/clinic/',skincare:'/ko/industry/skincare/',nail:'/ko/industry/nail/'};
+const aliases={bbq:'restaurant',chicken:'restaurant',bunsik:'restaurant',healthy:'restaurant',seafood:'restaurant',sushi:'restaurant',chinese:'restaurant',noodle:'restaurant',jokbal:'restaurant',bakery:'cafe',dessert:'cafe',hanbok:'attraction',lash:'beauty'};
+function url(p,slot){const u=new URL(p,'https://korea.wingkey.kr');u.searchParams.set('utm_source','classbook');u.searchParams.set('utm_medium','referral');u.searchParams.set('utm_campaign','korea_guide');u.searchParams.set('utm_content',slot);return u.href;}
+function industryUrl(category,slot){let key=String(category||'').replace(/^k-/,'');if(Object.prototype.hasOwnProperty.call(aliases,key))key=aliases[key];return url(Object.prototype.hasOwnProperty.call(paths,key)?paths[key]:'/ko/industries/',slot);}
+function hideDiscovery(){document.querySelectorAll('[data-guide-discovery]').forEach(el=>el.hidden=true);}
+for(const event of ['focusin','input','change'])document.addEventListener(event,e=>{if(e.target&&e.target.closest&&e.target.closest('#form,#register,#order'))hideDiscovery();});
+root.WingkeyGuide={url,industryUrl,hideDiscovery};
+})(window);
