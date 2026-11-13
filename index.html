@@ -624,10 +624,10 @@ html{scroll-padding-top:80px}.overview-hero{background:#f5f7fa;padding:32px 0 22
     <p class="desc">고른 종류에 맞춰 아래 질문이 바뀝니다.</p>
     <div data-req="btype">
       <div class="types" id="types">
-        <label><input type="radio" name="btype" value="job"><b>직무 맞춤 · 직업스픽</b><small>내 직무와 실제 업무 상황으로 만드는 비즈니스 중국어 (12 Unit × 3회)</small></label>
-        <label><input type="radio" name="btype" value="interview"><b>면접 준비</b><small>지원 분야의 예상 질문과 내 답변으로 만드는 면접 중국어 (12 Unit × 2회)</small></label>
-        <label><input type="radio" name="btype" value="industry"><b>업종별 응대</b><small>매장·병원·호텔·택시 등에서 중국 손님을 맞는 직원용 응대 중국어 (12 Unit × 1회)</small></label>
-        <label><input type="radio" name="btype" value="travel"><b>여행지</b><small>가는 도시의 장소·음식·이동 상황으로 만드는 여행 중국어 (12 Unit × 1회)</small></label>
+        <label><input type="radio" name="btype" value="job"><b>직무 맞춤 · 직업스픽</b><small>내 직무와 실제 업무 상황으로 만드는 비즈니스 중국어 (12 Unit · 교재만 구매 가능)</small></label>
+        <label><input type="radio" name="btype" value="interview"><b>면접 준비</b><small>지원 분야의 예상 질문과 내 답변으로 만드는 면접 중국어 (12 Unit · 혼자 연습용)</small></label>
+        <label><input type="radio" name="btype" value="industry"><b>업종별 응대</b><small>매장·병원·호텔·택시 등에서 중국 손님을 맞는 직원용 응대 중국어 (12 Unit · 교재만 구매 가능)</small></label>
+        <label><input type="radio" name="btype" value="travel"><b>여행지</b><small>가는 도시의 장소·음식·이동 상황으로 만드는 여행 중국어 (12 Unit · 교재만 구매 가능)</small></label>
       </div>
       <div class="err">교재 종류를 골라 주세요.</div>
     </div>
@@ -688,17 +688,17 @@ html{scroll-padding-top:80px}.overview-hero{background:#f5f7fa;padding:32px 0 22
 
   <div class="card">
     <h2><span class="n">4</span>현재 실력과 목표</h2>
-    <p class="desc">문장 길이, 단어 난이도, 교재 분량을 정합니다.</p>
+    <p class="desc">문장 길이, 단어 난이도, 교재 분량을 정합니다. 아래 시간·횟수는 학습 계획 참고용이며 수업 신청이 아닙니다. 화상수업은 주문 단계에서 따로 고릅니다.</p>
     <div class="grid">
       <div data-req="level"><label class="f" for="level">중국어 수준<span class="req">*</span></label><select id="level"><option value="">선택</option><option>입문 (처음 배움)</option><option>초급 (HSK 1~2급 수준)</option><option>초중급 (HSK 3급 수준)</option><option>중급 (HSK 4급 수준)</option><option>중고급 (HSK 5급 수준)</option><option>고급 (HSK 6급 이상)</option><option>잘 모름 (레벨 테스트 희망)</option></select><div class="err">수준을 골라 주세요.</div></div>
       <div><label class="f" for="pinyin">교재에 병음 표기</label><select id="pinyin"><option>모든 문장에 표기</option><option>새 단어에만 표기</option><option>표기하지 않음</option></select></div>
       <div class="full"><label class="f">약한 영역</label><div class="chips" id="weak"></div></div>
-      <div><label class="f" for="minutes">수업 길이</label><select id="minutes"><option value="25">25분</option><option value="50">50분</option></select></div>
-      <div><label class="f" for="perWeek">주 수업 횟수</label><select id="perWeek"><option>주 1회</option><option selected>주 2회</option><option>주 3회</option><option>주 4회</option><option>주 5회</option></select></div>
-      <div><label class="f" for="prep">수업 전 예습 가능 시간</label><select id="prep"><option>하루 10분</option><option selected>하루 20분</option><option>하루 30분 이상</option></select></div>
+      <div><label class="f" for="minutes">1회 연습 시간</label><select id="minutes"><option value="25">25분</option><option value="50">50분</option></select></div>
+      <div><label class="f" for="perWeek">주 연습 횟수</label><select id="perWeek"><option>주 1회</option><option selected>주 2회</option><option>주 3회</option><option>주 4회</option><option>주 5회</option></select></div>
+      <div><label class="f" for="prep">학습 준비 가능 시간</label><select id="prep"><option>하루 10분</option><option selected>하루 20분</option><option>하루 30분 이상</option></select></div>
       <div><label class="f" for="deadline"><span data-job="중요한 일정" data-industry="중요한 일정 (오픈·행사 등)" data-interview="면접 날짜" data-travel="출발일"></span><span class="hint">선택</span></label><input type="date" id="deadline"></div>
       <div class="full" data-for="job interview industry"><label class="f" for="deadlineEvent">그 일정은 무엇인가요?<span class="hint">선택</span></label><input type="text" id="deadlineEvent" data-ph-industry="예: 중국 단체 관광객 방문 시즌" data-ph-job="예: 3월 상하이 뷰티 박람회 참가" data-ph-interview="예: OO항공 2차 임원 면접"></div>
-      <div class="full" data-req="goal"><label class="f" for="goal">수강이 끝났을 때 중국어로 할 수 있으면 좋겠는 일<span class="req">*</span></label><textarea id="goal" data-ph-industry="예: 주문·결제·포장 안내를 중국어로 자연스럽게 하고 싶어요." data-ph-job="예: 통역 없이 중국 바이어와 가격·납기 미팅을 진행하고 싶어요." data-ph-interview="예: 자기소개와 지원 동기를 2분 동안 막힘없이 말하고, 꼬리 질문에도 답하고 싶어요." data-ph-travel="예: 식당 주문, 택시, 길 묻기를 번역 앱 없이 하고 싶어요."></textarea><div class="err">목표를 입력해 주세요.</div></div>
+      <div class="full" data-req="goal"><label class="f" for="goal">교재 학습 후 중국어로 할 수 있으면 좋겠는 일<span class="req">*</span></label><textarea id="goal" data-ph-industry="예: 주문·결제·포장 안내를 중국어로 자연스럽게 하고 싶어요." data-ph-job="예: 통역 없이 중국 바이어와 가격·납기 미팅을 진행하고 싶어요." data-ph-interview="예: 자기소개와 지원 동기를 2분 동안 막힘없이 말하고, 꼬리 질문에도 답하고 싶어요." data-ph-travel="예: 식당 주문, 택시, 길 묻기를 번역 앱 없이 하고 싶어요."></textarea><div class="err">목표를 입력해 주세요.</div></div>
     </div>
   </div>
 
@@ -710,7 +710,7 @@ html{scroll-padding-top:80px}.overview-hero{background:#f5f7fa;padding:32px 0 22
       <div class="full"><label class="f" for="faqs"><span data-job="상대가 자주 묻는 질문" data-industry="중국 손님이 자주 묻는 질문" data-interview="꼭 말하고 싶은 경험·강점" data-travel="꼭 전해야 하는 요청 (알레르기·식이 등)"></span></label><textarea id="faqs" data-ph-industry="예: 안 매운 메뉴 있어요? 위챗페이 돼요?" data-ph-job="예: 최소 주문 수량이 얼마예요? 중국어 라벨 가능해요?" data-ph-interview="예: 상하이 교환학생 때 현지 팀 프로젝트를 이끈 경험" data-ph-travel="예: 땅콩 알레르기, 고수 빼 주세요"></textarea></div>
       <div class="full"><label class="f" for="files">자료 파일<span class="hint" data-job="회사 소개서, 카탈로그, 메일·위챗 캡처" data-industry="메뉴판, 상품 목록, 안내문 사진" data-interview="이력서, 자기소개서, 채용 공고" data-travel="여행 일정표, 예약 확인서(개인정보 가림)"></span></label><input type="file" id="files" multiple></div>
       <div class="full" data-req="privacy">
-        <label class="check"><input type="checkbox" id="privacy"> <span>[필수] 맞춤교재 제작과 수강 상담을 위해 입력한 정보를 수집·이용하는 데 동의합니다.</span></label>
+        <label class="check"><input type="checkbox" id="privacy"> <span>[필수] 맞춤교재 제작·주문 안내와 선택 수업 상담을 위해 입력한 정보를 수집·이용하는 데 동의합니다.</span></label>
         <div class="err">동의가 필요합니다.</div>
         <label class="check"><input type="checkbox" id="reuse"> <span>[선택] 개인 정보를 지운 뒤 같은 종류의 교재 제작에 참고하는 데 동의합니다.</span></label>
       </div>
@@ -925,7 +925,7 @@ function bookMeta(p){
             : p.type==='job' ? `${p.industry} · ${p.job} 맞춤교재`
             : p.type==='interview' ? `${p.position}${p.target?' · '+p.target:''} 면접 맞춤교재`
             : `${c.label} ${p.tripDays} · ${p.companions.join(', ')} 여행 맞춤교재`;
-  const course = `${N*per}회 (${N} Unit × ${per}회, 회당 ${p.minutes}분)`;
+  const course = `${N} Unit · Unit당 ${per}단계 연습 (1회 ${p.minutes}분 기준)`;
   const rows = p.type==='industry' ? [['학습자',`${p.name} 님`],['업종',c.label],['역할',p.role],['손님',p.customers.join(', ')],['구성',course]]
              : p.type==='job' ? [['학습자',`${p.name} 님`],['직무',p.job],['레벨',p.level],['학습 목표',p.goal],['구성',course]]
              : p.type==='interview' ? [['학습자',`${p.name} 님`],['지원 분야',p.position+(p.target?` (${p.target})`:'')],['면접 일정',[p.deadline.date,p.deadline.event].filter(Boolean).join(' ')||'미정'],['레벨',p.level],['구성',course]]
@@ -970,7 +970,7 @@ function tocSvg(p,toc){
   });
   const by=y0+toc.length*(rh+gap)+6;
   s+=R(M,by,CW,52,{rx:10,fill:'#fff',stroke:BD});
-  s+=T(M+16,by+31,`Unit마다 ${m.perUnit}회`,{size:12,weight:700,fill:OR});
+  s+=T(M+16,by+31,`Unit당 ${m.perUnit}단계`,{size:12,weight:700,fill:OR});
   s+=T(M+110,by+31,m.flow,{size:12.5,fill:NV});
   s+=R(M,H-46,CW,1,{fill:BD})+T(M,H-26,clip1(m.footer,500,9.5),{size:9.5,fill:GR})+T(W-M,H-26,'02',{size:10,weight:700,fill:OR,anchor:'end'});
   return page(s);
