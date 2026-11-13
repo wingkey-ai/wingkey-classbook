@@ -1,6 +1,6 @@
 // 윙키클래스북 앱(PWA) 서비스 워커: 페이지는 인터넷 우선(실패 시 저장본), 그림은 저장본 우선. 음성(mp3)·신청 접수는 저장하지 않음.
-const V='wkcb-mwf10in5';
-const CORE=['/korea-guide-links.js','/','/app.html','/icon-192.png','/icon-512.png','/app-icon.svg','/favicon.png','/og-classbook.jpg','/manifest.webmanifest'];
+const V='wkcb-mwf1uo34';
+const CORE=['/classbook-analytics.js','/korea-guide-links.js','/','/app.html','/icon-192.png','/icon-512.png','/app-icon.svg','/favicon.png','/og-classbook.jpg','/manifest.webmanifest'];
 self.addEventListener('install',e=>{e.waitUntil(caches.open(V).then(c=>c.addAll(CORE)).catch(()=>{}));self.skipWaiting();});
 self.addEventListener('activate',e=>{e.waitUntil(caches.keys().then(ks=>Promise.all(ks.filter(k=>k!==V).map(k=>caches.delete(k)))).then(()=>self.clients.claim()));});
 self.addEventListener('fetch',e=>{const r=e.request,u=new URL(r.url);

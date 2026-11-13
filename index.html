@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<meta name="google-site-verification" content="5uYcXtyjUVBW6JmavQ51UQ_SblOlZjQw2u0WaQkv-qI" />
+<meta name="wingkey-ga4" content="G-EWNR8CB72J">
+<script src="classbook-analytics.js" defer></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>윙키클래스북 | 맞춤 중국어 교재·메뉴판·가격표·회사소개서</title>
@@ -1026,7 +1029,7 @@ function refreshOrder(){
 }
 document.querySelectorAll('input[name=plan]').forEach(r=>r.addEventListener('change',refreshOrder));
 $('#addon').addEventListener('change',refreshOrder);
-$('#toRegister').addEventListener('click',()=>{ $('#register').style.display='block';
+$('#toRegister').addEventListener('click',()=>{ window.WingkeyAnalytics?.track('order_start',{service:'book',book_type:lastProfile.type,placement:'register_cta'}); $('#register').style.display='block';
   document.querySelectorAll('#register [data-for]').forEach(el=>{ el.style.display = el.dataset.for.split(' ').includes(lastProfile.type)?'':'none'; });
   if(lastProfile.type!=='job') document.querySelector('input[name=plan][value=book]').checked=true;
   refreshOrder(); $('#register').scrollIntoView(); });
@@ -1086,6 +1089,7 @@ $('#regForm').addEventListener('submit',async(e)=>{
       const r=await fetch(CONFIG.submitUrl,{method:'POST',body:JSON.stringify({...lastRequest,uploads,website:$('#website').value})});
       const out=await r.json();
       if(!out.ok) throw new Error(out.error==='too_large'?'자료 파일 용량이 너무 큽니다.':'접수 중 문제가 생겼습니다.');
+      window.WingkeyAnalytics?.track('generate_lead',{service:'book',book_type:lastProfile.type});
     }catch(err){ btn.disabled=false; msg.textContent=''; alert((err&&err.message)||'접수 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.'); return; }
     btn.disabled=false; msg.textContent='';
   } else {
@@ -1172,11 +1176,11 @@ function gRender(){
 let vBook=null, vPage=0, vLast=null;
 function vShow(i){ vPage=(i+4)%4; $('#vImg').src=`b-${vBook.id}-p${vPage+1}.webp`; $('#vImg').alt=`${vBook.title} ${PAGE_NAMES[vPage]}`;
   $('#vDots').innerHTML=PAGE_NAMES.map((n,k)=>`<button aria-current="${k===vPage}" data-p="${k}">${n}</button>`).join(''); }
-function vOpen(id, listen){ vBook=CATALOG.find(b=>b.id===id); if(!vBook) return; $('#viewerGuide').hidden=vBook.type!=='industry'; if(vBook.type==='industry'&&window.WingkeyGuide)$('#viewerGuideLink').href=window.WingkeyGuide.industryUrl(vBook.cat,'book_preview'); $('#vListenBtn').hidden=!(typeof AUDIO==='object' && AUDIO[vBook.id]); $('#lAudio').removeAttribute('src'); vLast=document.activeElement; $('#vTitle').textContent=`${vBook.title} · 샘플`; $('#viewer').hidden=false; document.body.style.overflow='hidden'; vShow(0); $('#vClose').focus(); history.replaceState(null,'',`#book=${id}`); }
+function vOpen(id, listen){ vBook=CATALOG.find(b=>b.id===id); if(!vBook) return; $('#viewerGuide').hidden=vBook.type!=='industry'; if(vBook.type==='industry'&&window.WingkeyGuide)$('#viewerGuideLink').href=window.WingkeyGuide.industryUrl(vBook.cat,'book_preview'); $('#vListenBtn').hidden=!(typeof AUDIO==='object' && AUDIO[vBook.id]); $('#lAudio').removeAttribute('src'); vLast=document.activeElement; $('#vTitle').textContent=`${vBook.title} · 샘플`; $('#viewer').hidden=false; document.body.style.overflow='hidden'; vShow(0); window.WingkeyAnalytics?.track('sample_open',{service:'book',sample_id:vBook.id,book_type:vBook.type}); $('#vClose').focus(); history.replaceState(null,'',`#book=${id}`); }
 function vClose(){ if(typeof lStop==='function') lStop(); $('#vListen').hidden=true; $('#vStage').hidden=false; $('#vListenBtn').setAttribute('aria-pressed','false'); $('#vListenBtn').textContent='▶ 원어민 듣기'; document.querySelector('.vbox').classList.remove('listen'); $('#viewer').hidden=true; document.body.style.overflow=''; history.replaceState(null,'',location.pathname+location.search); if(vLast) vLast.focus(); }
 function pickBook(id){
   window.WingkeyGuide?.hideDiscovery();
-  const b=CATALOG.find(x=>x.id===id); if(!b) return;
+  const b=CATALOG.find(x=>x.id===id); if(!b) return; window.WingkeyAnalytics?.track('order_start',{service:'book',book_type:b.type,placement:'sample_cta'});
   if(!$('#viewer').hidden) vClose();
   const r=document.querySelector(`input[name=btype][value=${b.type}]`); r.checked=true; applyType(b.type,{category:b.cat,situations:[]});
   document.querySelector('[data-req=category]').scrollIntoView({block:'start'});
@@ -1241,5 +1245,6 @@ if (CATALOG.length){
   const hs0=location.hash, m=hs0.match(/^#book=([\w-]+)/); if(m){ vOpen(m[1]); if(/listen/.test(hs0)) lToggle(true); }
 }
 </script>
+<script>document.querySelector('#form').addEventListener('focusin',()=>window.WingkeyAnalytics?.track('order_start',{service:'book',placement:'form_focus'}));document.addEventListener('DOMContentLoaded',()=>{if(typeof vBook!=='undefined'&&vBook&&!document.querySelector('#viewer').hidden)window.WingkeyAnalytics?.track('sample_open',{service:'book',sample_id:vBook.id,book_type:vBook.type});});</script>
 </body>
 </html>

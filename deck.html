@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="ko">
 <head>
+<meta name="wingkey-ga4" content="G-EWNR8CB72J">
+<script src="classbook-analytics.js" defer></script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>회사소개서·제안서·채용 소개서 주문 제작 (한국어·중국어, 샘플 26종) | 윙키클래스북 WINGKEY CLASSBOOK</title>
@@ -232,9 +234,9 @@ function drawGal(){
 drawGal();
 $('#galTabs').addEventListener('change',e=>{ gNow=e.target.value; drawGal(); });
 let pvNow=null;
-function pickSample(id){ const x=SAMPLES.find(s=>s.id===id); if(!x) return; document.querySelector(`input[name=theme][value=${x.theme}]`).checked=true; const r=document.querySelector(`input[name=reader][value=${x.reader}]`); if(r) r.checked=true; $('#lb').hidden=true; refresh(); $('#order').scrollIntoView({behavior:'smooth'}); }
+function pickSample(id){ const x=SAMPLES.find(s=>s.id===id); if(!x) return; window.WingkeyAnalytics?.track('order_start',{service:'deck',sample_id:x.id,placement:'sample_cta'}); document.querySelector(`input[name=theme][value=${x.theme}]`).checked=true; const r=document.querySelector(`input[name=reader][value=${x.reader}]`); if(r) r.checked=true; $('#lb').hidden=true; refresh(); $('#order').scrollIntoView({behavior:'smooth'}); }
 document.addEventListener('click',e=>{ const pv=e.target.closest('[data-pv]'), go=e.target.closest('[data-go]');
-  if(pv){ const x=SAMPLES.find(s=>s.id===pv.dataset.pv); pvNow=x.id; $('#lbt').textContent=`${x.name} · ${x.doc} (${x.themeLabel})`; $('#lbimgs').innerHTML=[1,2,3,4].map(i=>`<img src="deck-sample-${x.id}-p${i}.jpg" alt="${x.name} ${i}쪽">`).join(''); $('#lbko').href=`deck-sample-${x.id}-ko.pdf`; $('#lbzh').href=`deck-sample-${x.id}-zh.pdf`; $('#lb').hidden=false; }
+  if(pv){ const x=SAMPLES.find(s=>s.id===pv.dataset.pv); pvNow=x.id; $('#lbt').textContent=`${x.name} · ${x.doc} (${x.themeLabel})`; $('#lbimgs').innerHTML=[1,2,3,4].map(i=>`<img src="deck-sample-${x.id}-p${i}.jpg" alt="${x.name} ${i}쪽">`).join(''); $('#lbko').href=`deck-sample-${x.id}-ko.pdf`; $('#lbzh').href=`deck-sample-${x.id}-zh.pdf`; $('#lb').hidden=false; window.WingkeyAnalytics?.track('sample_open',{service:'deck',sample_id:x.id}); }
   if(go) pickSample(go.dataset.go); });
 $('#lbgo').addEventListener('click',()=>pickSample(pvNow)); $('#lbx').addEventListener('click',()=>$('#lb').hidden=true); $('#lb').addEventListener('click',e=>{ if(e.target.id==='lb') $('#lb').hidden=true; });
 const READERS = { buyer: '중국 바이어·유통사', partner: '제휴·협력사', investor: '투자자·기관', hiring: '채용·인재' };
@@ -299,9 +301,11 @@ $('#order').addEventListener('submit', async (e) => {
     const r = await fetch(CONFIG.submitUrl, { method: 'POST', body: JSON.stringify({ ...req, uploads, website: $('#website2').value }) });
     const out = await r.json(); if (!out.ok) throw new Error(out.error === 'too_large' ? '자료 파일 용량이 너무 큽니다.' : '접수 중 문제가 생겼습니다.');
   } catch (err) { btn.disabled = false; $('#msg').textContent = ''; alert((err && err.message) || '접수 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.'); return; }
+  window.WingkeyAnalytics?.track('generate_lead',{service:'deck'});
   $('#reqId').textContent = req.requestId; $('#doneTotal').textContent = won(price);
   $('#order').style.display = 'none'; $('#done').style.display = 'block'; $('#done').scrollIntoView();
 });
 </script>
+<script>document.querySelector('#order').addEventListener('focusin',()=>window.WingkeyAnalytics?.track('order_start',{service:'deck',placement:'form_focus'}));</script>
 </body>
 </html>
