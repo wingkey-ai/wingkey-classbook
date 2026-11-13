@@ -134,6 +134,7 @@ footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(-
 <div class="card">
   <h2>5. 넣고 싶은 사진</h2><p class="desc">자리마다 사진을 올리거나, 원하는 장면을 글로 적어 주세요. 사진을 올리면 그 사진을 쓰고, 글만 적으면 설명대로 이미지를 새로 만들어 넣습니다. 둘 다 비우면 업종에 맞게 알아서 넣습니다.</p>
   <div id="imgSlots"></div>
+  <div id="extraSlotsWrap" style="display:none"><label class="f" style="margin-top:14px">추가한 장 사진<span class="hint">6번에서 장을 더하면 자리가 생깁니다 · 선택</span></label><div id="extraSlots"></div></div>
   <p class="desc" style="margin:6px 0 0">· 사진은 직접 찍었거나 사용 허락을 받은 것만 올려 주세요. · 새로 만드는 이미지는 실제 제품·공장 사진이 아니며, 상표·글자는 넣지 않습니다. · 사진·자료는 합쳐 25MB까지 올릴 수 있습니다.</p>
 </div>
 
@@ -179,7 +180,7 @@ footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(-
 <section style="margin:36px 0">
   <h2 style="font-size:22px">자주 묻는 질문</h2>
   <details><summary>회사소개서 가격은 얼마인가요?</summary><p>기본 10장까지 PDF 한국어판 49,000원, 한국어+중국어판 79,000원입니다. 10장을 넘으면 1장마다 한국어판 4,900원, 한국어+중국어판 7,900원이 더해집니다. 편집용 PPTX는 한국어판 +20,000원(추가 장당 +2,000원), 한국어+중국어판 +30,000원(추가 장당 +3,000원)입니다. 주문 화면에서 장을 더하면 금액이 바로 계산됩니다.</p></details>
-  <details><summary>원하는 사진을 넣을 수 있나요?</summary><p>네. 주문서의 "넣고 싶은 사진"에서 표지·서비스 자리마다 사진을 올리거나 원하는 장면을 글로 적어 주세요. 올린 사진은 그대로 쓰고, 글로 적은 장면은 설명대로 이미지를 새로 만들어 넣습니다. 비워 두면 업종에 맞게 넣습니다. 새로 만든 이미지는 실제 제품·공장 사진이 아니며 상표·글자는 넣지 않습니다.</p></details>
+  <details><summary>원하는 사진을 넣을 수 있나요?</summary><p>네. 주문서의 "넣고 싶은 사진"에서 표지·서비스 자리와 더한 장마다 사진을 올리거나 원하는 장면을 글로 적어 주세요. 더한 장도 같은 디자인(사진 + 제목 + 핵심 3가지)으로 만듭니다. 올린 사진은 그대로 쓰고, 글로 적은 장면은 설명대로 이미지를 새로 만들어 넣습니다. 비워 두면 업종에 맞게 넣습니다. 새로 만든 이미지는 실제 제품·공장 사진이 아니며 상표·글자는 넣지 않습니다.</p></details>
   <details><summary>언제 받나요?</summary><p>결제가 확인되면 24~48시간 안에 이메일로 보내 드립니다.</p></details>
   <details><summary>숫자나 고객사를 대신 채워 주나요?</summary><p>아닙니다. 매출·성과 숫자·고객사·인증은 주문서에 적어 주신 것만 씁니다. 없는 내용은 지어내지 않고 그 장을 빼거나 직접 채울 칸으로 남깁니다.</p></details>
   <details><summary>중국어는 원어민이 감수하나요?</summary><p>빠르게 만든 초안이라 원어민 감수 전입니다. 정확한 교정을 원하시면 원어민 1:1 화상수업에서 강사에게 교정을 받고, 고친 내용을 정리해 보내 주시면 수정본을 추후 보내 드립니다.</p></details>
@@ -188,7 +189,7 @@ footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(-
 <footer><div class="wrap">윙키클래스북(WINGKEY CLASSBOOK) · 발행 주식회사 윙키<br>(주)윙키 | 대표 이승효 | 사업자등록번호 277-88-02038 | 통신판매업 신고번호 2023-서울금천-0471<br>주소 서울 금천구 가산디지털1로 83 (가산동, 파트너스타워) 201-S17호 | 전화 02-757-1466 | 이메일 info@wingkey.kr · <a href="https://wingkey.kr/terms">이용약관</a> · <a href="https://wingkey.kr/privacy">개인정보처리방침</a></div></footer>
 <script>
 // 가격: 기본 10장 포함, 10장을 넘으면 1장마다 추가. PPTX도 장 수에 맞춰 올라간다.
-const CONFIG = { submitUrl: 'https://script.google.com/macros/s/AKfycbxp37hEXDt7FmGj5ejwixyBeNazD3Cxgp0j7ApWzsUpB6gTtW78ZkfZXbzLmK3uO5qV/exec', included: 10, price: { ko: 49000, kozh: 79000 }, perPage: { ko: 4900, kozh: 7900 }, pptx: { ko: 20000, kozh: 30000 }, pptxPerPage: { ko: 2000, kozh: 3000 }, maxUploadMB: 25, maxFiles: 7 };
+const CONFIG = { submitUrl: 'https://script.google.com/macros/s/AKfycbxp37hEXDt7FmGj5ejwixyBeNazD3Cxgp0j7ApWzsUpB6gTtW78ZkfZXbzLmK3uO5qV/exec', included: 10, price: { ko: 49000, kozh: 79000 }, perPage: { ko: 4900, kozh: 7900 }, pptx: { ko: 20000, kozh: 30000 }, pptxPerPage: { ko: 2000, kozh: 3000 }, maxUploadMB: 25, maxFiles: 19 };
 const EXTRAS = ['연혁', '팀·조직 소개', '인증·특허·수상', '제품 라인업 상세', '고객 사례', '공장·설비', '해외 진출·수출 실적', '자주 묻는 질문', '오시는 길'];
 function pages() { return plan().filter(s => s.on).length; }
 function quote() {
@@ -219,7 +220,20 @@ function planBase() {
   if (r === 'hiring') return [S('표지'), S('한 줄 소개'), ...svcSlides, S('일하는 방식', lines('diff').length > 0), ...tail];
   return [S('표지'), S('한 줄 소개'), S('고객이 겪는 문제', hasProb), ...svcSlides, S('차별점', lines('diff').length > 0), S('숫자로 본 성과', hasNum), S('고객사·파트너', !!hasCli), S('거래 진행 절차', lines('process').length > 0), ...tail];
 }
+const XROWS = new Map(); let xSeq = 0;
+function syncExtraSlots() {
+  const names = extrasList(), box = $('#extraSlots');
+  for (const [n, row] of XROWS) if (!names.includes(n)) { row.remove(); XROWS.delete(n); }
+  for (const n of names) if (!XROWS.has(n)) {
+    const id = 'x' + (++xSeq), row = document.createElement('div'); row.className = 'slot'; row.dataset.name = n; row.dataset.id = id;
+    row.innerHTML = `<b>${n.replace(/</g, '&lt;')}<small>추가 장</small></b><input type="file" id="img_${id}" accept=".jpg,.jpeg,.png,.webp,.heic"><input id="imgDesc_${id}" placeholder="원하는 장면 설명 (비우면 내용에 맞게 넣거나 사진 없이 구성)">`;
+    box.appendChild(row); XROWS.set(n, row);
+  }
+  $('#extraSlotsWrap').style.display = names.length ? '' : 'none';
+}
+function extraImages() { return [...XROWS.values()].map(r => ({ slot: r.dataset.id, page: r.dataset.name, label: r.dataset.name + ' (추가 장)', file: ($('#img_' + r.dataset.id).files[0] || {}).name || '', desc: v('imgDesc_' + r.dataset.id) })).filter(x => x.file || x.desc); }
 function refresh() {
+  syncExtraSlots();
   $('#toc').innerHTML = plan().map(s => `<li class="${s.on ? '' : 'off'}${s.add ? ' add' : ''}">${s.t}</li>`).join('');
   const q = quote();
   $('#pagebar').innerHTML = `총 <b>${q.pages}장</b> · 기본 ${q.included}장 포함` + (q.extra ? ` + 추가 <b>${q.extra}장 × ${won(q.perPage)}</b>` : ' (추가 금액 없음)') + ` → <b>${won(q.total)}</b>`;
@@ -234,7 +248,7 @@ $('#order').addEventListener('submit', async (e) => {
   if (!services().length) { alert('서비스·제품을 1개 이상 적어 주세요.'); ok = false; }
   if (!ok) { document.querySelector('.invalid')?.scrollIntoView({ block: 'center' }); return; }
   const lang = radio('lang'), Q = quote(), price = Q.total, reader = radio('reader'), wantPptx = $('#pptx').checked;
-  const images = SLOTS.map(([k, t]) => ({ slot: k, label: t, file: ($('#img_' + k).files[0] || {}).name || '', desc: v('imgDesc_' + k) })).filter(x => x.file || x.desc);
+  const images = SLOTS.map(([k, t]) => ({ slot: k, label: t, file: ($('#img_' + k).files[0] || {}).name || '', desc: v('imgDesc_' + k) })).filter(x => x.file || x.desc).concat(extraImages());
   const deck = { pptx: wantPptx, pages: Q.pages, extraPages: extrasList(), extraNotes: v('extraNotes'), images, logoFile: ($('#logoFile').files[0] || {}).name || '', reader, readerLabel: READERS[reader], langs: lang === 'kozh' ? ['ko', 'zh'] : ['ko'], company: v('company'), companyZh: v('companyZh'), industry: v('industry'), website: v('website'), oneLine: v('oneLine'), problems: lines('problem'), services: services(), diff: lines('diff'), numbers: lines('numbers'), clients: $('#clientsOk').checked ? v('clients') : '', clientsAllowed: $('#clientsOk').checked, process: lines('process'), founded: v('founded'), address: v('address'), contactName: v('contactName'), contactInfo: v('contactInfo'), accent: v('accent') };
   const toc = plan().map((s, i) => ({ no: i + 1, title: s.t, zh: '', selected: s.on, custom: false }));
   const order = { plan: 'deck', planLabel: `회사소개서 ${lang === 'kozh' ? '한국어+중국어판' : '한국어판'} PDF${wantPptx ? ' + 편집용 PPTX' : ''}`, bookPrice: price, pages: { count: Q.pages, included: Q.included, extra: Q.extra, perPage: Q.perPage, pdf: Q.pdf, pptx: Q.pptx }, addon: null, total: price };
@@ -243,12 +257,12 @@ $('#order').addEventListener('submit', async (e) => {
     learner: { name: v('name'), phone: v('phone'), email: v('email'), start: '', time: '', needInvoice: $('#invoice').checked },
     profile: { type: 'deck', name: v('name'), minutes: '', perWeek: '', level: '', situations: toc.filter(t => t.selected).map(t => t.title), customSituations: [], goal: `${READERS[reader]}에게 보낼 회사소개서`, deck, consents: { privacy: true, customMade: true, agreedAt: new Date().toISOString() }, files: [] },
     order, source: { utm_source: us || '', ref: document.referrer || '' },
-    sheet: { typeLabel: '회사소개서', category: READERS[reader], key: `${deck.company} · ${deck.industry}`, detail: [`주문: ${order.planLabel} ${Q.pages}장(추가 ${Q.extra}장) ${won(price)}`, deck.extraPages.length && `추가 장: ${deck.extraPages.join(', ')}`, us && `유입: ${us}`, `결제 예정 ${won(price)}`, `한 줄: ${deck.oneLine}`, `서비스: ${deck.services.map(s => s.name).join(', ')}`, images.length && `사진: ${images.map(i => i.slot + (i.file ? '(파일)' : '') + (i.desc ? '(설명: ' + i.desc + ')' : '')).join(', ')}`, wantPptx && 'PPTX 포함'].filter(Boolean).join(' | ') },
+    sheet: { typeLabel: '회사소개서', category: READERS[reader], key: `${deck.company} · ${deck.industry}`, detail: [`주문: ${order.planLabel} ${Q.pages}장(추가 ${Q.extra}장) ${won(price)}`, deck.extraPages.length && `추가 장: ${deck.extraPages.join(', ')}`, us && `유입: ${us}`, `결제 예정 ${won(price)}`, `한 줄: ${deck.oneLine}`, `서비스: ${deck.services.map(s => s.name).join(', ')}`, images.length && `사진: ${images.map(i => (i.page ? i.slot + ':' + i.page : i.slot) + (i.file ? '(파일)' : '') + (i.desc ? '(설명: ' + i.desc + ')' : '')).join(', ')}`, wantPptx && 'PPTX 포함'].filter(Boolean).join(' | ') },
     toc };
   const btn = $('#submitBtn'); btn.disabled = true; $('#msg').textContent = '접수 중입니다…';
   try {
     if (!CONFIG.submitUrl.startsWith('https://')) throw new Error('접수 주소가 설정되지 않았습니다.');
-    const files = [...SLOTS.map(([k]) => $('#img_' + k).files[0] && { f: $('#img_' + k).files[0], name: k + '__' + $('#img_' + k).files[0].name }), $('#logoFile').files[0] && { f: $('#logoFile').files[0], name: 'logo__' + $('#logoFile').files[0].name }, ...[...$('#files').files].slice(0, 2).map(f => ({ f, name: 'doc__' + f.name }))].filter(Boolean).map(x => Object.assign(x.f, { _n: x.name }));
+    const files = [...SLOTS.map(([k]) => $('#img_' + k).files[0] && { f: $('#img_' + k).files[0], name: k + '__' + $('#img_' + k).files[0].name }), ...[...XROWS.values()].map(r => { const f = $('#img_' + r.dataset.id).files[0]; return f && { f, name: r.dataset.id + '__' + f.name }; }), $('#logoFile').files[0] && { f: $('#logoFile').files[0], name: 'logo__' + $('#logoFile').files[0].name }, ...[...$('#files').files].slice(0, 2).map(f => ({ f, name: 'doc__' + f.name }))].filter(Boolean).map(x => Object.assign(x.f, { _n: x.name }));
     if (files.reduce((a, f) => a + f.size, 0) > CONFIG.maxUploadMB * 1024 * 1024) throw new Error(`자료 파일은 합쳐 ${CONFIG.maxUploadMB}MB 이하로 올려 주세요.`);
     const uploads = await Promise.all(files.map(f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res({ name: f._n || f.name, mimeType: f.type, size: f.size, base64: String(r.result).split(',')[1] }); r.onerror = rej; r.readAsDataURL(f); })));
     const r = await fetch(CONFIG.submitUrl, { method: 'POST', body: JSON.stringify({ ...req, uploads, website: $('#website2').value }) });
