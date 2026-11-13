@@ -89,6 +89,7 @@ body{margin:0;font-family:"Noto Sans SC","Noto Sans KR",sans-serif;color:${t.ink
     opt = opt || {};
     const meta = m.meta || {}, info = m.info || {}, t = THEMES[meta.theme] || THEMES.warm, langs = meta.langs || ['zh', 'ko'];
     const images = opt.images || {}, preview = !!opt.preview;
+    const service = meta.kind === 'service' || meta.kind === 'rental';
     let n = 0, anyAi = false, anyImg = false;
     const secs = (m.sections || []).filter(s => (s.items || []).some(i => i.ko || i.zh)).map(s => {
       const items = s.items.filter(i => i.ko || i.zh);
@@ -107,9 +108,9 @@ body{margin:0;font-family:"Noto Sans SC","Noto Sans KR",sans-serif;color:${t.ink
     const right = `<div class="box">${pay.length ? `<h3>支付方式 · 결제</h3><div class="pay">${pay.map(p => `<i>${PAY[p]}</i>`).join('')}</div>` : ''}${info.phrases === false ? '' : `<h3 style="margin-top:${pay.length ? 10 : 0}px">点餐常用语 · 주문할 때 쓰는 말</h3><div class="phr">${PHRASES.map(([z, k]) => `<div><b>${z}</b><span>${k}</span></div>`).join('')}</div>`}</div>`;
     const notes = [anyImg || anyAi ? '图片仅供参考，请以实物为准 · 사진은 참고용입니다' : '', anyAi ? '标有“示意图 · AI”的图片为AI生成的示意图 · "示意图 · AI" 표시 사진은 AI로 만든 예시 이미지입니다' : '', '价格单位：韩元(₩)，含增值税 · 가격은 부가세 포함 원화 기준'].filter(Boolean);
     const fonts = 'family=Noto+Sans+KR:wght@400;700;800&family=Noto+Sans+SC:wght@400;700;800' + (t.serif ? '&family=Noto+Serif+KR:wght@700;800&family=Noto+Serif+SC:wght@700;800' : '');
-    return `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(meta.storeZh || meta.store)} 菜单 · ${esc(meta.store)} 중국어 메뉴판</title><link href="https://fonts.googleapis.com/css2?${fonts}&display=swap" rel="stylesheet"><style>${css(t, meta.accent, langs)}</style></head><body><div class="mn">
+    return `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${esc(meta.storeZh || meta.store)} 菜单 · ${esc(meta.store)} 중국어 메뉴판</title><link href="https://fonts.googleapis.com/css2?${fonts}&display=swap" rel="stylesheet"><style>${css(t, meta.accent, langs)}${meta.compact ? `.fe{grid-template-columns:1fr;gap:8px}.fe .it:has(.ph){display:grid;grid-template-columns:180px 1fr}.fe .ph{aspect-ratio:auto;height:180px}.fe .it:not(:has(.ph)) .bd{padding-left:42px}.fe .it:not(:has(.ph)) .zh{font-size:16px}.fe .it:not(:has(.ph)) .ds{margin-top:3px}.ft{margin-top:12px}.box{font-size:10px}.hd{padding:18px 22px 15px}.sec{margin-top:12px}.li{padding:6px 0}@media print{.mn{zoom:.9;max-width:none}.fe .ph{height:140px}.fe .bd{padding:8px 12px}.hd{padding:14px 20px 12px}.sec{margin-top:10px}.ft{margin-top:10px}.box{padding:9px 11px}.fn{font-size:9px;margin-top:6px}}@media(max-width:600px){.fe .it:has(.ph){grid-template-columns:130px 1fr}.fe .ph{height:150px}.fe .zh{font-size:16px}.fe .pr{font-size:15px}}` : ''}</style></head><body><div class="mn">
 <header class="hd">${meta.sample ? '<span class="smp">制作示例 · 虚拟店铺 / 제작 예시 · 가상 매장</span>' : ''}<div class="wel">欢迎光临</div><h1>${esc(meta.storeZh || meta.store)}</h1><div class="ko">${esc(meta.store)}</div>${meta.tagline && (meta.tagline.zh || meta.tagline.ko) ? `<div class="tg">${[meta.tagline.zh, meta.tagline.ko].filter(Boolean).map(esc).join(' · ')}</div>` : ''}</header>
-<div class="how"><b>点餐方法</b>请告诉店员菜品编号 · 메뉴 번호로 주문하실 수 있어요</div>
+<div class="how"><b>${service ? '服务预约' : '点餐方法'}</b>${service ? '请告诉店员项目编号 · 원하는 서비스 번호를 말씀해 주세요' : '请告诉店员菜品编号 · 메뉴 번호로 주문하실 수 있어요'}</div>
 ${secs}
 <div class="ft">${left}${right}</div>
 <div class="fn">${notes.join('<br>')}</div>
