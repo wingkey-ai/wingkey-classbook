@@ -22,7 +22,7 @@
     utm_campaign: ['classbook', 'menu', 'deck', 'korea_guide', 'guest', 'wingkey_classbook', 'xiaohongshu_classbook'],
     utm_content: ['banner_01','banner_02','banner_03','banner_04','banner_05','guest_gif_3frame']
   };
-  var TITLES = { '/': 'Wingkey Classbook Home', '/app.html': 'Wingkey Classbook Order', '/menu': 'Wingkey Classbook Menu', '/deck': 'Wingkey Classbook Deck' };
+  var TITLES = { '/': '윙키클래스북 | 홈', '/app.html': '윙키클래스북 | 앱 설치', '/menu': '윙키클래스북 | 메뉴판·가격표', '/deck': '윙키클래스북 | 회사소개서' };
   var GUIDE_ORIGIN = 'https://korea.wingkey.kr';
 
   var id = '';
@@ -122,8 +122,11 @@
       gtag('consent', 'update', {
         ad_storage: 'denied', ad_user_data: 'denied', ad_personalization: 'denied', analytics_storage: 'granted'
       });
-      gtag('js', new Date());
+      // Set privacy/page defaults BEFORE the Google tag boot event.
+      // The remote tag can initialize a destination during js, ahead of config.
+      gtag('set',{send_page_view:false,page_title:pageTitle(location.pathname),page_location:pageLocation(),page_referrer:referrerOrigin(),allow_google_signals:false,allow_ad_personalization_signals:false,cookie_prefix:COOKIE_PREFIX,cookie_domain:COOKIE_DOMAIN,cookie_flags:'SameSite=Lax;Secure',cookie_expires:180*24*60*60,cookie_update:false});
       gtag('set','ads_data_redaction',true);
+      gtag('js', new Date());
       gtag('config', id, {
         page_title:pageTitle(location.pathname),
         page_location:pageLocation(),
