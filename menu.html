@@ -24,62 +24,75 @@
 ]}
 </script>
 <style>
+/* 모바일 웹 텍스트 +1pt. 고정된 px·인라인 스타일도 같은 변수를 사용하며 PC·인쇄는 0입니다. */
+:root{--wk-mobile-font-bump:0px}
+body{font-size:calc(16px + var(--wk-mobile-font-bump,0px))}
+h1{font-size:calc(2 * (1em - var(--wk-mobile-font-bump,0px)) + var(--wk-mobile-font-bump,0px))}
+h2{font-size:calc(1.5 * (1em - var(--wk-mobile-font-bump,0px)) + var(--wk-mobile-font-bump,0px))}
+h3{font-size:calc(1.17 * (1em - var(--wk-mobile-font-bump,0px)) + var(--wk-mobile-font-bump,0px))}
+h4{font-size:inherit}
+h5{font-size:calc(.83 * (1em - var(--wk-mobile-font-bump,0px)) + var(--wk-mobile-font-bump,0px))}
+h6{font-size:calc(.67 * (1em - var(--wk-mobile-font-bump,0px)) + var(--wk-mobile-font-bump,0px))}
+small{font-size:calc(.833333 * (1em - var(--wk-mobile-font-bump,0px)) + var(--wk-mobile-font-bump,0px))}
+sub,sup{font-size:calc(.75 * (1em - var(--wk-mobile-font-bump,0px)) + var(--wk-mobile-font-bump,0px))}
+@media screen and (max-width:760px){:root{--wk-mobile-font-bump:1pt}}
+
 :root{--or:#FF6600;--nv:#032451;--gr:#6B7280;--dk:#374151;--bd:#E5E7EB;--lo:#FFF3EA;--lg:#F9FAFB}
 *{box-sizing:border-box}body{margin:0;font-family:Pretendard,"Apple SD Gothic Neo","Noto Sans KR",sans-serif;color:#111827;background:#fff;line-height:1.6}
 a{color:inherit}.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 header{position:sticky;top:0;background:rgba(255,255,255,.95);border-bottom:1px solid var(--bd);z-index:5}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:64px}header img{height:30px}
-header nav a{margin-left:18px;text-decoration:none;font-size:15px;color:var(--dk)}
-.hero{padding:48px 0 18px;max-width:980px}.eyebrow{display:inline-block;background:var(--lo);color:var(--or);font-weight:700;font-size:13px;padding:6px 12px;border-radius:999px}
-h1{font-size:38px;line-height:1.25;margin:14px 0 12px;letter-spacing:-.5px}.lead{font-size:18px;color:var(--dk);margin:0 0 18px}
+header nav a{margin-left:18px;text-decoration:none;font-size:calc(15px + var(--wk-mobile-font-bump,0px));color:var(--dk)}
+.hero{padding:48px 0 18px;max-width:980px}.eyebrow{display:inline-block;background:var(--lo);color:var(--or);font-weight:700;font-size:calc(13px + var(--wk-mobile-font-bump,0px));padding:6px 12px;border-radius:999px}
+h1{font-size:calc(38px + var(--wk-mobile-font-bump,0px));line-height:1.25;margin:14px 0 12px;letter-spacing:-.5px}.lead{font-size:calc(18px + var(--wk-mobile-font-bump,0px));color:var(--dk);margin:0 0 18px}
 .prices{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin:20px 0}.price{border:1.5px solid var(--bd);border-radius:16px;padding:16px 18px}
-.price b{display:block;font-size:16px;color:var(--nv)}.price strong{font-size:24px;color:var(--or)}.price small{display:block;color:var(--gr);font-size:13px}
-.note{background:var(--lg);border-radius:12px;padding:14px 16px;font-size:14px;color:var(--dk);margin:12px 0}
+.price b{display:block;font-size:calc(16px + var(--wk-mobile-font-bump,0px));color:var(--nv)}.price strong{font-size:calc(24px + var(--wk-mobile-font-bump,0px));color:var(--or)}.price small{display:block;color:var(--gr);font-size:calc(13px + var(--wk-mobile-font-bump,0px))}
+.note{background:var(--lg);border-radius:12px;padding:14px 16px;font-size:calc(14px + var(--wk-mobile-font-bump,0px));color:var(--dk);margin:12px 0}
 .gal{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin:12px 0}.g{border:1px solid var(--bd);border-radius:14px;overflow:hidden;background:#fff;display:flex;flex-direction:column}
 .g button.th{border:0;padding:0;background:none;cursor:zoom-in}.g img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;display:block}
-.g b{display:block;font-size:14px;padding:10px 12px 0;color:var(--nv)}.g small{display:block;padding:2px 12px 8px;color:var(--gr);font-size:12.5px}
-.g .ga{display:flex;gap:6px;padding:0 12px 12px;margin-top:auto}.g .ga button{flex:1;border:1px solid var(--bd);background:#fff;border-radius:8px;padding:7px 4px;font-size:13px;font-weight:700;cursor:pointer}.g .ga button.go{background:var(--or);border-color:var(--or);color:#fff}
+.g b{display:block;font-size:calc(14px + var(--wk-mobile-font-bump,0px));padding:10px 12px 0;color:var(--nv)}.g small{display:block;padding:2px 12px 8px;color:var(--gr);font-size:calc(12.5px + var(--wk-mobile-font-bump,0px))}
+.g .ga{display:flex;gap:6px;padding:0 12px 12px;margin-top:auto}.g .ga button{flex:1;border:1px solid var(--bd);background:#fff;border-radius:8px;padding:7px 4px;font-size:calc(13px + var(--wk-mobile-font-bump,0px));font-weight:700;cursor:pointer}.g .ga button.go{background:var(--or);border-color:var(--or);color:#fff}
 .lb{position:fixed;inset:0;background:rgba(3,10,25,.72);z-index:50;display:flex;align-items:center;justify-content:center;padding:20px}.lb[hidden]{display:none}
-.lbin{background:#fff;border-radius:18px;max-width:1100px;width:100%;max-height:92vh;overflow:auto;padding:22px;position:relative}.lbx{position:absolute;right:14px;top:10px;border:0;background:none;font-size:30px;cursor:pointer}
-.lbimgs{display:grid;grid-template-columns:1fr 1fr .55fr;gap:10px;align-items:start}.lbimgs img{width:100%;border-radius:8px;border:1px solid var(--bd)}.lbimgs figure{margin:0}.lbimgs figcaption{font-size:12px;color:var(--gr);text-align:center}
+.lbin{background:#fff;border-radius:18px;max-width:1100px;width:100%;max-height:92vh;overflow:auto;padding:22px;position:relative}.lbx{position:absolute;right:14px;top:10px;border:0;background:none;font-size:calc(30px + var(--wk-mobile-font-bump,0px));cursor:pointer}
+.lbimgs{display:grid;grid-template-columns:1fr 1fr .55fr;gap:10px;align-items:start}.lbimgs img{width:100%;border-radius:8px;border:1px solid var(--bd)}.lbimgs figure{margin:0}.lbimgs figcaption{font-size:calc(12px + var(--wk-mobile-font-bump,0px));color:var(--gr);text-align:center}
 .lbp{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin:14px 0 0;font-weight:700}.lbp a{color:var(--or)}
 .layout{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:22px;align-items:start}
-.pv{position:sticky;top:76px}.pvbox{border:1px solid var(--bd);border-radius:16px;overflow:hidden;background:#EEE}.pvbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff;border-bottom:1px solid var(--bd);font-size:13.5px;font-weight:700}
+.pv{position:sticky;top:76px}.pvbox{border:1px solid var(--bd);border-radius:16px;overflow:hidden;background:#EEE}.pvbar{display:flex;justify-content:space-between;align-items:center;padding:10px 14px;background:#fff;border-bottom:1px solid var(--bd);font-size:calc(13.5px + var(--wk-mobile-font-bump,0px));font-weight:700}
 .pvscroll{height:calc(100vh - 190px);overflow:auto}.pvscroll iframe{border:0;width:794px;transform-origin:0 0;display:block;background:#fff}
-.card{background:#fff;border:1px solid var(--bd);border-radius:18px;padding:22px;margin:0 0 16px}.card h2{font-size:19px;margin:0 0 4px}.card .desc{color:var(--gr);font-size:13.5px;margin:0 0 12px}
+.card{background:#fff;border:1px solid var(--bd);border-radius:18px;padding:22px;margin:0 0 16px}.card h2{font-size:calc(19px + var(--wk-mobile-font-bump,0px));margin:0 0 4px}.card .desc{color:var(--gr);font-size:calc(13.5px + var(--wk-mobile-font-bump,0px));margin:0 0 12px}
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px 14px}.full{grid-column:1/-1}
-label.f{display:block;font-weight:700;font-size:14px;margin-bottom:5px}.req{color:var(--or);margin-left:3px}.hint{color:var(--gr);font-weight:400;font-size:12.5px;margin-left:6px}
-input,select,textarea{width:100%;border:1px solid #D1D5DB;border-radius:10px;padding:10px 11px;font:inherit;font-size:15px;background:#fff}textarea{min-height:70px;resize:vertical}
+label.f{display:block;font-weight:700;font-size:calc(14px + var(--wk-mobile-font-bump,0px));margin-bottom:5px}.req{color:var(--or);margin-left:3px}.hint{color:var(--gr);font-weight:400;font-size:calc(12.5px + var(--wk-mobile-font-bump,0px));margin-left:6px}
+input,select,textarea{width:100%;border:1px solid #D1D5DB;border-radius:10px;padding:10px 11px;font:inherit;font-size:calc(15px + var(--wk-mobile-font-bump,0px));background:#fff}textarea{min-height:70px;resize:vertical}
 input:focus,select:focus,textarea:focus{outline:2px solid #F97316;border-color:transparent}
-.opts{display:flex;flex-wrap:wrap;gap:8px}.opts label{border:1px solid #D1D5DB;border-radius:999px;padding:7px 13px;font-size:14px;cursor:pointer;background:#fff}
+.opts{display:flex;flex-wrap:wrap;gap:8px}.opts label{border:1px solid #D1D5DB;border-radius:999px;padding:7px 13px;font-size:calc(14px + var(--wk-mobile-font-bump,0px));cursor:pointer;background:#fff}
 .opts input{position:absolute;opacity:0;pointer-events:none}.opts label:has(input:checked){background:var(--nv);border-color:var(--nv);color:#fff}
-.themes{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.themes label{border:1.5px solid var(--bd);border-radius:12px;padding:6px;cursor:pointer;font-size:13px;font-weight:700;text-align:center}
+.themes{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}.themes label{border:1.5px solid var(--bd);border-radius:12px;padding:6px;cursor:pointer;font-size:calc(13px + var(--wk-mobile-font-bump,0px));font-weight:700;text-align:center}
 .themes input{position:absolute;opacity:0}.themes label:has(input:checked){border-color:var(--or);background:var(--lo)}.themes img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:top;border-radius:7px;display:block;margin-bottom:4px}
-.check{display:flex;gap:8px;align-items:flex-start;font-size:14px}.check input{width:auto;margin-top:4px;accent-color:var(--or)}
-.err{display:none;color:#DC2626;font-size:13px;margin-top:4px}.invalid .err{display:block}.invalid input{border-color:#DC2626}
+.check{display:flex;gap:8px;align-items:flex-start;font-size:calc(14px + var(--wk-mobile-font-bump,0px))}.check input{width:auto;margin-top:4px;accent-color:var(--or)}
+.err{display:none;color:#DC2626;font-size:calc(13px + var(--wk-mobile-font-bump,0px));margin-top:4px}.invalid .err{display:block}.invalid input{border-color:#DC2626}
 .sec{border:1px solid var(--bd);border-radius:14px;padding:12px;margin:0 0 12px;background:var(--lg)}.sech{display:flex;gap:8px;align-items:center;margin-bottom:8px}.sech input{font-weight:700}
 .item{background:#fff;border:1px solid var(--bd);border-radius:12px;padding:10px;margin-bottom:8px}.ir1{display:grid;grid-template-columns:1.6fr .9fr .8fr auto;gap:6px}.ir2{margin-top:6px}
-.ir3{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:6px;align-items:center;font-size:13px}.ir3 select{width:auto;padding:6px 8px;font-size:13px}.ir3 label{display:inline-flex;gap:3px;align-items:center;cursor:pointer}.ir3 input[type=checkbox]{width:auto;accent-color:var(--or)}
-.ph{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;padding-top:8px;border-top:1px dashed var(--bd);font-size:13px}.ph .seg{display:inline-flex;border:1px solid #D1D5DB;border-radius:9px;overflow:hidden}.ph .seg label{padding:5px 10px;cursor:pointer;border-right:1px solid #D1D5DB}.ph .seg label:last-child{border:0}.ph .seg input{position:absolute;opacity:0}.ph .seg label:has(input:checked){background:var(--nv);color:#fff}
-.ph input[type=file]{width:auto;max-width:230px;font-size:12.5px;padding:5px}.ph input.aid{flex:1;min-width:180px;padding:6px 9px;font-size:13px}.zhh{font-size:12px;color:var(--gr);margin-left:2px}.zhh b{color:#0E7C66}
-.mini{white-space:nowrap;border:1px solid var(--bd);background:#fff;border-radius:8px;padding:6px 10px;font-size:13px;font-weight:700;cursor:pointer}.mini.del{color:#DC2626;border-color:#FCA5A5}.mini.add{border-style:dashed;color:var(--or);border-color:#FDBA8C}
-.total{display:flex;justify-content:space-between;align-items:center;background:var(--nv);color:#fff;border-radius:12px;padding:14px 18px;margin:12px 0;font-size:15px}.total b{font-size:22px}.qline{font-size:13.5px;color:var(--dk);background:var(--lo);border-radius:10px;padding:10px 14px}
-.btn{display:inline-block;border:0;border-radius:12px;padding:14px 22px;font-size:16px;font-weight:700;cursor:pointer;background:var(--or);color:#fff}.btn:disabled{opacity:.6}
+.ir3{display:flex;flex-wrap:wrap;gap:6px 10px;margin-top:6px;align-items:center;font-size:calc(13px + var(--wk-mobile-font-bump,0px))}.ir3 select{width:auto;padding:6px 8px;font-size:calc(13px + var(--wk-mobile-font-bump,0px))}.ir3 label{display:inline-flex;gap:3px;align-items:center;cursor:pointer}.ir3 input[type=checkbox]{width:auto;accent-color:var(--or)}
+.ph{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:8px;padding-top:8px;border-top:1px dashed var(--bd);font-size:calc(13px + var(--wk-mobile-font-bump,0px))}.ph .seg{display:inline-flex;border:1px solid #D1D5DB;border-radius:9px;overflow:hidden}.ph .seg label{padding:5px 10px;cursor:pointer;border-right:1px solid #D1D5DB}.ph .seg label:last-child{border:0}.ph .seg input{position:absolute;opacity:0}.ph .seg label:has(input:checked){background:var(--nv);color:#fff}
+.ph input[type=file]{width:auto;max-width:230px;font-size:calc(12.5px + var(--wk-mobile-font-bump,0px));padding:5px}.ph input.aid{flex:1;min-width:180px;padding:6px 9px;font-size:calc(13px + var(--wk-mobile-font-bump,0px))}.zhh{font-size:calc(12px + var(--wk-mobile-font-bump,0px));color:var(--gr);margin-left:2px}.zhh b{color:#0E7C66}
+.mini{white-space:nowrap;border:1px solid var(--bd);background:#fff;border-radius:8px;padding:6px 10px;font-size:calc(13px + var(--wk-mobile-font-bump,0px));font-weight:700;cursor:pointer}.mini.del{color:#DC2626;border-color:#FCA5A5}.mini.add{border-style:dashed;color:var(--or);border-color:#FDBA8C}
+.total{display:flex;justify-content:space-between;align-items:center;background:var(--nv);color:#fff;border-radius:12px;padding:14px 18px;margin:12px 0;font-size:calc(15px + var(--wk-mobile-font-bump,0px))}.total b{font-size:calc(22px + var(--wk-mobile-font-bump,0px))}.qline{font-size:calc(13.5px + var(--wk-mobile-font-bump,0px));color:var(--dk);background:var(--lo);border-radius:10px;padding:10px 14px}
+.btn{display:inline-block;border:0;border-radius:12px;padding:14px 22px;font-size:calc(16px + var(--wk-mobile-font-bump,0px));font-weight:700;cursor:pointer;background:var(--or);color:#fff}.btn:disabled{opacity:.6}
 #done{display:none}.steps{list-style:none;padding:0;display:grid;gap:10px}.steps li{display:flex;gap:12px;background:var(--lg);border-radius:12px;padding:14px}
 .steps b{background:var(--or);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex:none}
 details{border-bottom:1px solid var(--bd);padding:14px 0}summary{font-weight:700;cursor:pointer}
-footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(--gr);font-size:13px}
+footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(--gr);font-size:calc(13px + var(--wk-mobile-font-bump,0px))}
 .mpv{display:none}
 .ba{display:grid;grid-template-columns:.8fr 1.2fr;gap:18px;align-items:center;border:1.5px solid #FDBA8C;background:#FFFBF7;border-radius:18px;padding:18px;margin:26px 0 0}.ba img{width:100%;border-radius:10px}@media(max-width:720px){.ba{grid-template-columns:1fr}}
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.modes label{border:1.5px solid var(--bd);border-radius:14px;padding:12px 14px;cursor:pointer;position:relative}.modes input{position:absolute;opacity:0;width:1px;height:1px}.modes label:has(input:checked){border-color:var(--or);background:var(--lo)}.modes b{display:block;font-size:15px}.modes small{color:var(--gr);font-size:12.5px}
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}.modes label{border:1.5px solid var(--bd);border-radius:14px;padding:12px 14px;cursor:pointer;position:relative}.modes input{position:absolute;opacity:0;width:1px;height:1px}.modes label:has(input:checked){border-color:var(--or);background:var(--lo)}.modes b{display:block;font-size:calc(15px + var(--wk-mobile-font-bump,0px))}.modes small{color:var(--gr);font-size:calc(12.5px + var(--wk-mobile-font-bump,0px))}
 .pbox{border:1.5px dashed #FDBA8C;border-radius:14px;padding:14px;background:#FFFBF7}.thumbs{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}.thumbs img{height:90px;border-radius:8px;border:1px solid var(--bd)}
 @media(max-width:720px){.modes{grid-template-columns:1fr}}
 @media(max-width:960px){.layout{grid-template-columns:1fr}.pv{position:fixed;inset:0;top:0;z-index:40;background:rgba(3,10,25,.7);padding:12px;display:none}.pv.open{display:block}.pvscroll{height:calc(100vh - 80px)}.mpv{display:block;position:fixed;right:16px;bottom:16px;z-index:30;box-shadow:0 6px 20px rgba(0,0,0,.25)}}
-@media(max-width:720px){.gal{grid-template-columns:1fr 1fr}.themes{grid-template-columns:repeat(3,1fr)}.lbimgs{grid-template-columns:1fr}h1{font-size:28px}.grid,.prices{grid-template-columns:1fr}.ir1{grid-template-columns:1fr 1fr}header nav a:not(:last-child){display:none}}
+@media(max-width:720px){.gal{grid-template-columns:1fr 1fr}.themes{grid-template-columns:repeat(3,1fr)}.lbimgs{grid-template-columns:1fr}h1{font-size:calc(28px + var(--wk-mobile-font-bump,0px))}.grid,.prices{grid-template-columns:1fr}.ir1{grid-template-columns:1fr 1fr}header nav a:not(:last-child){display:none}}
 .opts label,.themes label,.seg label{position:relative}.opts input,.themes input,.seg input{width:1px!important;height:1px;margin:0;left:0;top:0}
 
 /* 코리아가이드: 새 탭 보조 안내, 신청서 안에는 배치하지 않음 */
-.kg-band{display:flex;align-items:center;justify-content:space-between;gap:24px;background:#f7f9fb;border:1px solid #e5ebf2;border-radius:14px;padding:21px 24px;margin:8px 0 26px;color:#032451}.kg-eyebrow{font-size:10px;letter-spacing:.01em;color:#77869a;margin:0 0 7px}.kg-band h2{font-size:18px;font-weight:650;line-height:1.4;letter-spacing:-.03em;color:#032451;margin:0 0 7px}.kg-copy{font-size:12px;line-height:1.7;color:#6f7f93;margin:0}.kg-actions{display:flex;align-items:center;gap:17px;flex-wrap:wrap;flex-shrink:0}.kg-actions a,.kg-done a{display:inline-flex;align-items:center;gap:5px;font-size:12px;font-weight:600;color:#405d80;text-decoration:none;min-height:44px;border-bottom:1px solid #b6c5d7}.kg-actions a:hover,.kg-done a:hover{color:#032451;border-color:#032451}.kg-tabnote{font-size:10px;color:#8a96a6;margin:6px 0 0}.kg-done{background:#f7f9fb;border:1px solid #e5ebf2;border-radius:12px;margin:22px 0 0;padding:18px 20px}.kg-done h3{font-size:16px;color:#032451;margin:0 0 7px}.kg-done p{font-size:12px;line-height:1.8;color:#6f7f93;margin:0 0 7px}.vguide{width:100%;margin:0;display:flex;justify-content:flex-end;gap:10px;align-items:center;font-size:10px;color:#8290a2}.vguide a{color:#405d80;font-size:11px;font-weight:600;text-decoration:none;min-height:30px;display:inline-flex;align-items:center}.kg-done[hidden],.vguide[hidden],[data-guide-discovery][hidden]{display:none!important}@media(max-width:760px){.kg-band{display:block;padding:18px;margin-bottom:22px}.kg-band h2{font-size:16px}.kg-copy{font-size:11px}.kg-actions{gap:18px;margin-top:6px}.kg-actions a{font-size:11px}.kg-done{padding:16px}.vguide{justify-content:flex-start;font-size:9px}.vguide a{font-size:10px}}
+.kg-band{display:flex;align-items:center;justify-content:space-between;gap:24px;background:#f7f9fb;border:1px solid #e5ebf2;border-radius:14px;padding:21px 24px;margin:8px 0 26px;color:#032451}.kg-eyebrow{font-size:calc(10px + var(--wk-mobile-font-bump,0px));letter-spacing:.01em;color:#77869a;margin:0 0 7px}.kg-band h2{font-size:calc(18px + var(--wk-mobile-font-bump,0px));font-weight:650;line-height:1.4;letter-spacing:-.03em;color:#032451;margin:0 0 7px}.kg-copy{font-size:calc(12px + var(--wk-mobile-font-bump,0px));line-height:1.7;color:#6f7f93;margin:0}.kg-actions{display:flex;align-items:center;gap:17px;flex-wrap:wrap;flex-shrink:0}.kg-actions a,.kg-done a{display:inline-flex;align-items:center;gap:5px;font-size:calc(12px + var(--wk-mobile-font-bump,0px));font-weight:600;color:#405d80;text-decoration:none;min-height:44px;border-bottom:1px solid #b6c5d7}.kg-actions a:hover,.kg-done a:hover{color:#032451;border-color:#032451}.kg-tabnote{font-size:calc(10px + var(--wk-mobile-font-bump,0px));color:#8a96a6;margin:6px 0 0}.kg-done{background:#f7f9fb;border:1px solid #e5ebf2;border-radius:12px;margin:22px 0 0;padding:18px 20px}.kg-done h3{font-size:calc(16px + var(--wk-mobile-font-bump,0px));color:#032451;margin:0 0 7px}.kg-done p{font-size:calc(12px + var(--wk-mobile-font-bump,0px));line-height:1.8;color:#6f7f93;margin:0 0 7px}.vguide{width:100%;margin:0;display:flex;justify-content:flex-end;gap:10px;align-items:center;font-size:calc(10px + var(--wk-mobile-font-bump,0px));color:#8290a2}.vguide a{color:#405d80;font-size:calc(11px + var(--wk-mobile-font-bump,0px));font-weight:600;text-decoration:none;min-height:30px;display:inline-flex;align-items:center}.kg-done[hidden],.vguide[hidden],[data-guide-discovery][hidden]{display:none!important}@media(max-width:760px){.kg-band{display:block;padding:18px;margin-bottom:22px}.kg-band h2{font-size:calc(16px + var(--wk-mobile-font-bump,0px))}.kg-copy{font-size:calc(11px + var(--wk-mobile-font-bump,0px))}.kg-actions{gap:18px;margin-top:6px}.kg-actions a{font-size:calc(11px + var(--wk-mobile-font-bump,0px))}.kg-done{padding:16px}.vguide{justify-content:flex-start;font-size:calc(9px + var(--wk-mobile-font-bump,0px))}.vguide a{font-size:calc(10px + var(--wk-mobile-font-bump,0px))}}
 </style>
 </head>
 <body>
@@ -91,12 +104,12 @@ footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(-
   <p class="lead"><b>지금 쓰는 한국어 메뉴판을 찍어서 올리기만 하면</b> 메뉴·가격을 읽어 중국어 메뉴판으로 바꿔 드려요. 직접 입력하면 오른쪽에 <b>바로 미리보기</b>가 나옵니다. 사진은 메뉴마다 <b>직접 올리거나 AI로 만들기</b>를 고를 수 있어요. 원산지 표시, 결제수단(알리페이·위챗페이), 주문할 때 쓰는 중국어 한마디까지 넣어 <b>A4 인쇄용 PDF</b>와 <b>휴대폰용 이미지</b>로 보내 드립니다. 회원가입 없이 주문하고, 결제 확인 후 <b>24~48시간 안에</b> 이메일로 받습니다.</p>
   <div class="prices">
     <div class="price"><b>중국어 메뉴판</b><strong>9,900원</strong><small>메뉴 20개 · AI 사진 8장까지 포함 · 직접 올린 사진은 무료 · 1회 무료 수정</small></div>
-    <div class="price"><b>추가 옵션</b><strong style="font-size:18px">메뉴 10개 +2,000원</strong><small>AI 사진 4장마다 +1,000원 · 번체(대만·홍콩)도 같은 가격</small></div>
+    <div class="price"><b>추가 옵션</b><strong style="font-size:calc(18px + var(--wk-mobile-font-bump,0px))">메뉴 10개 +2,000원</strong><small>AI 사진 4장마다 +1,000원 · 번체(대만·홍콩)도 같은 가격</small></div>
     <div class="price"><b>메뉴판 + 업종 응대 교재</b><strong>24,900원</strong><small>교재(단독 19,900원)를 15,000원에 · 우리 매장 메뉴로 중국어 응대를 연습</small></div>
   </div>
   <div class="note"><b>빠른 초안 안내</b><br>입력하신 메뉴로 빠르게 만든 초안이며, 원어민 감수를 거친 메뉴판이 아닙니다. 가격·원산지·재료는 적어 주신 내용만 씁니다. AI 사진은 실제 음식과 다를 수 있어 메뉴판에 '示意图 · AI(예시 이미지)'와 '사진은 참고용' 문구를 넣습니다. 받은 뒤 1회 무료로 고쳐 드립니다.</div>
-  <div class="ba"><div><h2 style="font-size:20px;margin:0 0 6px">이렇게 바뀝니다 · 메뉴판 사진 1장 → 중국어 메뉴판</h2><p class="desc" style="margin:0 0 10px;color:var(--gr);font-size:14px">손글씨 칠판 메뉴판을 찍어 올리면, 메뉴·가격·원산지를 읽어 중국어·한국어 메뉴판으로 새로 만듭니다. 국밥처럼 처음 보는 음식은 짧은 중국어 설명과 "不辣(안 매움)" 같은 표시를 붙여요.</p><a class="lbp" style="color:var(--or);font-weight:700" href="menu-sample-gukbap-photo.pdf" target="_blank" rel="noopener">완성 PDF 보기 ↗</a></div><img src="menu-before-after.jpg" alt="손글씨 한국어 메뉴판 사진을 중국어·한국어 메뉴판으로 바꾼 예시 (할매국밥, 가상 매장)" loading="lazy"></div>
-  <h2 style="font-size:22px;margin:30px 0 6px">업종별 샘플 20종 <span class="hint">가상 매장 · 사진은 모두 AI 예시 · 마음에 드는 샘플로 바로 시작하세요</span></h2>
+  <div class="ba"><div><h2 style="font-size:calc(20px + var(--wk-mobile-font-bump,0px));margin:0 0 6px">이렇게 바뀝니다 · 메뉴판 사진 1장 → 중국어 메뉴판</h2><p class="desc" style="margin:0 0 10px;color:var(--gr);font-size:calc(14px + var(--wk-mobile-font-bump,0px))">손글씨 칠판 메뉴판을 찍어 올리면, 메뉴·가격·원산지를 읽어 중국어·한국어 메뉴판으로 새로 만듭니다. 국밥처럼 처음 보는 음식은 짧은 중국어 설명과 "不辣(안 매움)" 같은 표시를 붙여요.</p><a class="lbp" style="color:var(--or);font-weight:700" href="menu-sample-gukbap-photo.pdf" target="_blank" rel="noopener">완성 PDF 보기 ↗</a></div><img src="menu-before-after.jpg" alt="손글씨 한국어 메뉴판 사진을 중국어·한국어 메뉴판으로 바꾼 예시 (할매국밥, 가상 매장)" loading="lazy"></div>
+  <h2 style="font-size:calc(22px + var(--wk-mobile-font-bump,0px));margin:30px 0 6px">업종별 샘플 20종 <span class="hint">가상 매장 · 사진은 모두 AI 예시 · 마음에 드는 샘플로 바로 시작하세요</span></h2>
   <p class="hint" style="line-height:1.8">음식 메뉴판부터 뷰티 서비스 가격표·한복 대여 안내까지 만들 수 있어요. 서비스 매장은 소요 시간·추가요금·예약 안내를 함께 넣으세요.<br>샘플 업종: 국밥 · 메뉴판 사진으로 만든 예 · 한식당 · 고깃집 · 치킨·호프 · 분식 · 삼계탕·보양식 · 간장게장·해산물 · 카페·디저트 · 피부관리·스파 · 초밥·일식 · 중식당 · 냉면·칼국수 · 족발·보쌈 · 베이커리 · 빙수·디저트 · 헤어숍 · 네일숍 · 마사지·발관리 · 속눈썹·브로우 · 한복 대여<br>모든 매장·가격은 제작 예시이며, 중국어는 원어민 감수 전 초안입니다. 2026-11-13 기준.</p>
   <div class="opts" id="galTabs" style="margin:10px 0"></div>
   <div class="gal" id="gal"></div>
@@ -189,7 +202,7 @@ footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(-
 </section>
 
 <section style="max-width:820px;margin-top:30px">
-  <h2 style="font-size:22px">자주 묻는 질문</h2>
+  <h2 style="font-size:calc(22px + var(--wk-mobile-font-bump,0px))">자주 묻는 질문</h2>
   <details><summary>가격은 얼마인가요?</summary><p>메뉴 20개, AI 사진 8장까지 포함해 9,900원입니다. 메뉴가 20개를 넘으면 10개마다 2,000원, AI 사진이 8장을 넘으면 4장마다 1,000원이 더해집니다. 직접 올린 사진은 추가 비용이 없습니다. 표기는 중국어와 한국어 두 가지입니다.</p></details>
   <details><summary>AI 사진은 어떻게 표시되나요?</summary><p>AI 사진은 메뉴 이름과 설명에 맞춰 만든 예시 이미지입니다. 실제 음식과 다를 수 있어 사진 모서리에 '示意图 · AI(예시 이미지)'를, 아래에는 '图片仅供参考(사진은 참고용)' 문구를 넣습니다. 실제 사진으로 바꾸고 싶으면 나중에 사진을 보내 주세요.</p></details>
   <details><summary>지금 쓰는 메뉴판 사진만 올려도 되나요?</summary><p>네. 벽 메뉴판, 종이 메뉴, 배달앱 화면 캡처 모두 됩니다(최대 5장). 사진 속 메뉴와 가격을 읽어 옮겨 적고, 중국어로 바꿔 새 디자인으로 만듭니다. 흐린 부분은 문자로 확인하고, 메뉴가 20개를 넘으면 추가 금액을 먼저 안내합니다. 원래 메뉴판 그림 위에 글자만 바꾸는 방식이 아니라, 같은 내용으로 새로 깔끔하게 만드는 방식입니다.</p></details>
@@ -242,7 +255,7 @@ function itemHTML(it = {}) {
   <div class="zhh"></div>
   <div class="ir2"><input class="desc" placeholder="한 줄 설명 (선택, 예: 뜨거운 돌솥에 비벼 드세요)" value="${(it.desc||'').replace(/"/g,'&quot;')}"></div>
   <div class="ir3"><select class="spicy">${SPICY.map(([k,t])=>`<option value="${k}"${k===sp?' selected':''}>${t}</option>`).join('')}</select>${CONT.map(([k,t])=>`<label><input type="checkbox" class="tag" value="${k}"${tags.includes(k)?' checked':''}>${t}</label>`).join('')}</div>
-  <div class="ph"><b style="font-size:13px">사진</b><span class="seg"><label><input type="radio" name="pm_${id}" value="file"${mode==='file'?' checked':''}>올리기</label><label><input type="radio" name="pm_${id}" value="ai"${mode==='ai'?' checked':''}>AI로 만들기</label><label><input type="radio" name="pm_${id}" value="none"${mode==='none'?' checked':''}>없음</label></span><input type="file" class="pf" accept=".jpg,.jpeg,.png,.webp,.heic" style="display:${mode==='file'?'':'none'}"><input class="aid" placeholder="원하는 모습 (선택, 예: 위에서 찍은 돌솥, 계란 노른자)" value="${(it.aiDesc||'').replace(/"/g,'&quot;')}" style="display:${mode==='ai'?'':'none'}"></div></div>`;
+  <div class="ph"><b style="font-size:calc(13px + var(--wk-mobile-font-bump,0px))">사진</b><span class="seg"><label><input type="radio" name="pm_${id}" value="file"${mode==='file'?' checked':''}>올리기</label><label><input type="radio" name="pm_${id}" value="ai"${mode==='ai'?' checked':''}>AI로 만들기</label><label><input type="radio" name="pm_${id}" value="none"${mode==='none'?' checked':''}>없음</label></span><input type="file" class="pf" accept=".jpg,.jpeg,.png,.webp,.heic" style="display:${mode==='file'?'':'none'}"><input class="aid" placeholder="원하는 모습 (선택, 예: 위에서 찍은 돌솥, 계란 노른자)" value="${(it.aiDesc||'').replace(/"/g,'&quot;')}" style="display:${mode==='ai'?'':'none'}"></div></div>`;
 }
 function secHTML(s = {}) {
   const id = 's' + (++uid);
@@ -298,7 +311,7 @@ function menuData(forPreview) {
   return { menu: { meta, sections, info }, images };
 }
 function draw() {
-  if (isPhoto()) { const n = $('#oldMenu').files.length; $('#pvf').srcdoc = `<body style="margin:0;font-family:sans-serif;background:#F6EFE4;padding:40px;color:#2B2118"><h2 style="margin:0 0 10px">${(v('store') || '우리 매장').replace(/</g, '&lt;')} 중국어 메뉴판</h2><p style="font-size:18px;line-height:1.6">${n ? `올린 메뉴판 사진 ${n}장을 보고 메뉴·가격을 옮겨 적은 뒤,<br>고른 디자인으로 중국어·한국어 메뉴판을 만들어 드립니다.` : '메뉴판 사진을 올려 주세요.<br>사진 속 메뉴·가격을 읽어 중국어 메뉴판으로 만들어 드립니다.'}</p><p style="font-size:16px;color:#7A6A58">완성 모습은 위 업종별 샘플을 참고하세요. 직접 입력을 고르면 바로 미리보기가 나옵니다.</p></body>`; return; }
+  if (isPhoto()) { const n = $('#oldMenu').files.length; $('#pvf').srcdoc = `<body style="margin:0;font-family:sans-serif;background:#F6EFE4;padding:40px;color:#2B2118"><h2 style="margin:0 0 10px">${(v('store') || '우리 매장').replace(/</g, '&lt;')} 중국어 메뉴판</h2><p style="font-size:calc(18px + var(--wk-mobile-font-bump,0px));line-height:1.6">${n ? `올린 메뉴판 사진 ${n}장을 보고 메뉴·가격을 옮겨 적은 뒤,<br>고른 디자인으로 중국어·한국어 메뉴판을 만들어 드립니다.` : '메뉴판 사진을 올려 주세요.<br>사진 속 메뉴·가격을 읽어 중국어 메뉴판으로 만들어 드립니다.'}</p><p style="font-size:calc(16px + var(--wk-mobile-font-bump,0px));color:#7A6A58">완성 모습은 위 업종별 샘플을 참고하세요. 직접 입력을 고르면 바로 미리보기가 나옵니다.</p></body>`; return; }
   const { menu, images } = menuData(true);
   const html = WingkeyMenu.renderMenu(menu, { images, preview: true });
   const f = $('#pvf'); f.srcdoc = html;
