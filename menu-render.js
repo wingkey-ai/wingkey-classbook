@@ -54,7 +54,7 @@ body{margin:0;font-family:"Noto Sans SC","Noto Sans KR",sans-serif;color:${t.ink
 .kn{font-size:12px;color:${t.sub};font-weight:700}.en{font-size:10.5px;color:${t.sub};font-style:italic}
 .ds{font-size:11.5px;margin-top:5px;color:${t.ink};opacity:.88}.ds small{display:block;color:${t.sub};font-size:10.5px;opacity:1}
 .tgs{display:flex;flex-wrap:wrap;gap:4px;margin-top:6px}.tgs i{font-style:normal;font-size:9.5px;color:#fff;border-radius:4px;padding:1px 5px;font-weight:700}
-.ls{columns:2;column-gap:22px}.li{break-inside:avoid;display:grid;grid-template-columns:26px 1fr auto;gap:0 8px;align-items:baseline;padding:7px 0;border-bottom:1px dashed ${t.line === '#161616' ? '#16161655' : t.line}}
+.ls{display:grid;grid-template-columns:1fr 1fr;column-gap:22px;align-items:start}.li{break-inside:avoid;display:grid;grid-template-columns:26px 1fr auto;gap:0 8px;align-items:baseline;padding:7px 0;border-bottom:1px dashed ${t.line === '#161616' ? '#16161655' : t.line}}
 .li .n{font-weight:800;color:${A};font-size:12.5px}.li .zh{font-size:14.5px}.li .pr{font-size:14px}.li .sub{grid-column:2/4}
 .ft{margin-top:18px;display:grid;grid-template-columns:1.2fr 1fr;gap:12px;break-inside:avoid}
 .box{background:${t.card};border-radius:${t.radius}px;padding:12px 14px;font-size:11px;${t.line === '#161616' ? 'border:2px solid #161616;' : ''}}
@@ -63,7 +63,8 @@ body{margin:0;font-family:"Noto Sans SC","Noto Sans KR",sans-serif;color:${t.ink
 .phr{display:grid;grid-template-columns:1fr 1fr;gap:3px 12px}.phr div b{font-size:12px}.phr div span{color:${t.sub};font-size:10.5px;margin-left:5px}
 .fn{margin-top:10px;font-size:9.5px;color:${t.sub};text-align:center}
 .en{display:none}
-@media (max-width:600px){.hd h1{font-size:26px}.fe{grid-template-columns:1fr}.gr{grid-template-columns:1fr 1fr}.ls{columns:1}.ft{grid-template-columns:1fr}body{padding:10px}}
+@media print{.fe .ph{aspect-ratio:auto;height:252px}.gr .ph{aspect-ratio:auto;height:186px}}
+@media (max-width:600px){.hd h1{font-size:26px}.fe{grid-template-columns:1fr}.gr{grid-template-columns:1fr 1fr}.ls{grid-template-columns:1fr}.ft{grid-template-columns:1fr}body{padding:10px}}
 @media screen{body{padding:18px}}`;
   }
 
