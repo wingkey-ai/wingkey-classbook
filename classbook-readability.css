@@ -1,0 +1,28 @@
+/* WINGKEY CLASSBOOK screen readability. Font sizes, layout, SVG/PDF artwork and print are unchanged. */
+@media screen {
+  :root{--gr:#475569;--dk:#334155;--charcoal:#374151;--or:#bf3f0b;--accent:#bf3f0b}
+  .overview-eyebrow,.overview-lead,.service-for,.service-desc,.service-price small,
+  .service-terms,.service-footnote,.service-footnote p,.stage-label,
+  .journey li,.journey li span,.production-info summary,.production-info summary span,
+  .production-grid p,.production-note,.section-kicker,.gallery>.desc,
+  .gtabs button:not([aria-selected="true"]),.gtabs button small,.ggroups button,
+  .gbadge,.gzh,.gu1,.gbtns .btn.sec,form .desc,.types small,
+  .faq p,.kg-eyebrow,.kg-copy,.kg-tabnote,.kg-done p,.vguide{
+    color:#415169!important;
+  }
+  .service-desc,.service-price small,.service-terms,.service-footnote,.service-footnote p,
+  .stage-label,.overview-lead,.journey li,.journey li span,
+  .production-info summary,.production-grid p,.production-note,.section-kicker,
+  .gallery>.desc,.gzh,.gu1,form .desc,.types small,.faq p,
+  .kg-eyebrow,.kg-copy,.kg-tabnote,.kg-done p,.vguide,
+  .price small,.g small,.lbimgs figcaption,.card .desc,.modes small,.slot small{
+    font-weight:500;
+  }
+  .gtabs button small,#situations small,.chips small,.cats small{opacity:1!important}
+  .opts label:has(input:checked) small,.chips label:has(input:checked) small{color:inherit!important}
+  .kg-actions a,.kg-done a,.vguide a{color:#234e7c}
+  input::placeholder,textarea::placeholder{color:#596579;opacity:1}
+  body:has(#services) footer{color:#dce4ee}
+  body:has(#services) footer p,body:has(#services) footer .biz{color:#dce4ee!important;font-weight:500}
+  body:has(#services) footer .biz a,body:has(#services) footer .appline a{color:#f0f4f8}
+}
