@@ -17,10 +17,10 @@
   var SLUG = /^[a-z][a-z0-9_-]{0,47}$/;
   var CARD_SERVICE = { 'home-books': 'book', 'home-menu': 'menu', 'home-deck': 'deck' };
   var UTM = {
-    utm_source: ['wingkey', 'xiaohongshu', 'xhs', 'redbook', 'naver', 'naver_cafe', 'google', 'classbook', 'korea', 'korea_guide'],
-    utm_medium: ['banner', 'referral', 'organic', 'social', 'home', 'cpc', 'qr', 'email', 'display'],
-    utm_campaign: ['classbook', 'menu', 'deck', 'korea_guide', 'guest', 'wingkey_classbook', 'xiaohongshu_classbook'],
-    utm_content: ['banner_01','banner_02','banner_03','banner_04','banner_05','guest_gif_3frame']
+    utm_source: ['wingkey', 'xiaohongshu', 'xhs', 'redbook', 'naver', 'naver_cafe', 'google', 'classbook', 'korea', 'korea_guide', 'china-guide', 'china_guide'],
+    utm_medium: ['banner', 'referral', 'organic', 'social', 'home', 'cpc', 'qr', 'email', 'display', 'site'],
+    utm_campaign: ['classbook', 'menu', 'deck', 'korea_guide', 'guest', 'wingkey_classbook', 'xiaohongshu_classbook', 'travel_textbook'],
+    utm_content: ['banner_01','banner_02','banner_03','banner_04','banner_05','guest_gif_3frame',"home","learn","city-shanghai","city-qingdao","city-zhangjiajie","city-beijing","city-harbin","city-chengdu","city-chongqing","city-xian","city-hongkong","city-macau"]
   };
   var TITLES = { '/': '윙키클래스북 | 홈', '/app.html': '윙키클래스북 | 앱 설치', '/menu': '윙키클래스북 | 메뉴판·가격표', '/deck': '윙키클래스북 | 회사소개서' };
   var GUIDE_ORIGIN = 'https://korea.wingkey.kr';
