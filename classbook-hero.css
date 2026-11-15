@@ -25,3 +25,11 @@
  }
 }
 @media print{.hero-with-image{display:none!important}}
+
+/* Selected effect 1: gentle image-only zoom, one 8-second pass. */
+@media screen{.hero-with-image .hero-visual{overflow:hidden}}
+@media screen and (prefers-reduced-motion:no-preference){
+ .hero-with-image .hero-visual img{transform-origin:58% 52%;animation:wkcb-gentle-zoom 8s ease-in-out 0s 1 normal none}
+ @keyframes wkcb-gentle-zoom{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+}
+@media screen and (prefers-reduced-motion:reduce){.hero-with-image .hero-visual img{animation:none!important;transform:none!important}}
