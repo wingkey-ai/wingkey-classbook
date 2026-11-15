@@ -1,0 +1,27 @@
+/* Approved WINGKEY CLASSBOOK preparation-desk hero. Web text, no sales prices. */
+@media screen{
+ .info-hero.hero-with-image{position:relative;isolation:isolate;overflow:hidden;padding:0!important;background:#f7f5f1!important;border-bottom:1px solid #e2ded7}
+ .hero-with-image .hero-visual{position:absolute;inset:0;margin:0;z-index:0}
+ .hero-with-image .hero-visual picture{display:block;width:100%;height:100%}
+ .hero-with-image .hero-visual img{display:block;width:100%;height:100%;object-fit:cover;object-position:center}
+ .hero-with-image .hero-visual figcaption{position:absolute;right:18px;bottom:16px;max-width:calc(100% - 36px);padding:5px 9px;border-radius:5px;background:rgba(255,255,255,.87);color:#415169;font-size:calc(11px + var(--wk-mobile-font-bump,0px));font-weight:500;line-height:1.6;text-align:right}
+ .info-hero.hero-with-image>.wrap{position:relative;z-index:1;display:flex;align-items:center;min-height:clamp(570px,56.28vw,780px);gap:0;pointer-events:none}
+ .hero-with-image .hero-copy{width:46%;max-width:550px;min-width:0;padding:52px 0;pointer-events:auto}
+ .hero-with-image h1{font-size:calc(clamp(32px,3.65vw,54px) + var(--wk-mobile-font-bump,0px));line-height:1.3;letter-spacing:-.045em}
+ .hero-with-image .overview-lead{font-size:calc(17px + var(--wk-mobile-font-bump,0px));line-height:1.85}
+ .hero-with-image .info-reassure{line-height:1.8;max-width:430px}
+ @media(max-width:1100px) and (min-width:901px){.hero-with-image .info-actions{gap:16px}.hero-with-image .info-actions .btn{padding:0 16px}.hero-with-image .info-secondary{font-size:calc(13px + var(--wk-mobile-font-bump,0px))}.hero-with-image .overview-eyebrow{font-size:calc(12px + var(--wk-mobile-font-bump,0px))}}
+ @media(max-width:900px){
+  .hero-with-image .hero-visual{position:relative;inset:auto;aspect-ratio:1112/941;max-height:400px;background:#f7f5f1}
+  .hero-with-image .hero-visual img{object-fit:contain}
+  .hero-with-image .hero-visual figcaption{right:10px;bottom:9px;max-width:calc(100% - 20px);padding:3px 6px;font-size:calc(10.5px + var(--wk-mobile-font-bump,0px))}
+  .info-hero.hero-with-image>.wrap{display:block;min-height:0;padding-top:25px;padding-bottom:32px;pointer-events:auto}
+  .hero-with-image .hero-copy{width:100%;max-width:none;padding:0}
+  .hero-with-image h1{font-size:calc(30px + var(--wk-mobile-font-bump,0px));line-height:1.35;margin-top:12px}
+  .hero-with-image .overview-lead{font-size:calc(14px + var(--wk-mobile-font-bump,0px));line-height:1.9}
+  .hero-with-image .overview-eyebrow{margin-top:0}
+  .hero-with-image .info-actions{margin-top:22px;gap:16px}
+  .hero-with-image .info-reassure{font-size:calc(12px + var(--wk-mobile-font-bump,0px));margin-top:16px}
+ }
+}
+@media print{.hero-with-image{display:none!important}}
