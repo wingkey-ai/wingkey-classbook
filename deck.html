@@ -290,7 +290,9 @@ $('#order').addEventListener('submit', async (e) => {
   if (!ok) { document.querySelector('.invalid')?.scrollIntoView({ block: 'center' }); return; }
   const lang = radio('lang'), Q = quote(), price = Q.total, reader = radio('reader'), wantPptx = $('#pptx').checked;
   // 서버 가격 계산에 넘길 옵션 (금액은 넘기지 않는다)
-  const payOptions = { lang, pageCount: Q.pages, includePptx: wantPptx };
+  // 서버 가격표는 "기본 10장" 이상만 받는다. 10장보다 적게 구성돼도 금액은 기본가라서
+  // 10장으로 신고한다(실제 구성 장수는 접수 내용에 그대로 남는다).
+  const payOptions = { lang, pageCount: Math.max(CONFIG.included, Q.pages), includePptx: wantPptx };
   const images = SLOTS.map(([k, t]) => ({ slot: k, label: t, file: ($('#img_' + k).files[0] || {}).name || '', desc: v('imgDesc_' + k) })).filter(x => x.file || x.desc).concat(extraImages());
   const deck = { theme: radio('theme'), pptx: wantPptx, pages: Q.pages, extraPages: extrasList(), extraNotes: v('extraNotes'), images, logoFile: ($('#logoFile').files[0] || {}).name || '', reader, readerLabel: READERS[reader], langs: lang === 'kozh' ? ['ko', 'zh'] : ['ko'], company: v('company'), companyZh: v('companyZh'), industry: v('industry'), website: v('website'), oneLine: v('oneLine'), problems: lines('problem'), services: services(), diff: lines('diff'), numbers: lines('numbers'), clients: $('#clientsOk').checked ? v('clients') : '', clientsAllowed: $('#clientsOk').checked, process: lines('process'), founded: v('founded'), address: v('address'), contactName: v('contactName'), contactInfo: v('contactInfo'), accent: v('accent') };
   const toc = plan().map((s, i) => ({ no: i + 1, title: s.t, zh: '', selected: s.on, custom: false }));
