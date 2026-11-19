@@ -316,6 +316,7 @@ $('#order').addEventListener('submit', async (e) => {
   window.WingkeyAnalytics?.track('generate_lead',{service:'deck'});
   // 접수는 끝났다. 결제 주문을 만들어 결제 페이지로 보낸다.
   let payment=null, payError='';
+  $('#msg').textContent = '결제 페이지를 준비하는 중입니다…';
   try{ payment=await startPayment(req, payOptions); }catch(err){ payError=(err&&err.message)||'결제 페이지를 준비하지 못했습니다.'; }
   btn.disabled=false; $('#msg').textContent='';
   $('#reqId').textContent = req.requestId; $('#doneTotal').textContent = won(payment ? payment.amount : price);
