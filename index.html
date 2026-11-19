@@ -758,8 +758,10 @@ html{scroll-padding-top:72px}
 <script>
 const CONFIG = {
   submitUrl: 'https://script.google.com/macros/s/AKfycbxp37hEXDt7FmGj5ejwixyBeNazD3Cxgp0j7ApWzsUpB6gTtW78ZkfZXbzLmK3uO5qV/exec', // Google Apps Script 웹 앱 주소 (POST). 비어 있으면 브라우저에 임시 저장 + 요청서 다운로드
+  apiUrl: 'https://api.wingkey.kr/api/v1/classbook/orders',
   maxUploadMB: 10, maxFiles: 5, unitsPerBook: 12
 };
+const SKU_MAP = { industry:'CB-BOOK-INDUSTRY', travel:'CB-BOOK-TRAVEL', job:'CB-BOOK-JOB', interview:'CB-BOOK-INTERVIEW' };
 // 교재 종류별 설정 (상품명·Unit당 회차는 운영 결정에 맞춰 바꾸세요)
 const TYPES = {
   job:       { label:'직무 맞춤', product:'직업스픽', price:12900, pill:'직업스픽 맞춤교재', perUnit:3, flow:'1회차 표현·대화  →  2회차 1단어 N문장·패턴  →  3회차 롤플레이·피드백',
@@ -1025,31 +1027,51 @@ $('#regForm').addEventListener('submit',async(e)=>{
   if(!okP||!okE||!okA||!okL) return;
   lastRequest=makeRequest();
   const btn=$('#regBtn'), msg=$('#regMsg');
-  if(CONFIG.submitUrl){
-    btn.disabled=true; msg.textContent='접수 중입니다…';
-    try{
-      const files=[...$('#files').files].slice(0,CONFIG.maxFiles);
-      const total=files.reduce((a,f)=>a+f.size,0);
-      if(total>CONFIG.maxUploadMB*1024*1024) throw new Error(`자료 파일은 모두 합쳐 ${CONFIG.maxUploadMB}MB 이하로 올려 주세요.`);
-      const uploads=await Promise.all(files.map(f=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res({name:f.name,mimeType:f.type,size:f.size,base64:String(r.result).split(',')[1]});r.onerror=rej;r.readAsDataURL(f);})));
+  const o=lastRequest.order;
+  btn.disabled=true; msg.textContent='접수 중입니다…';
+  try{
+    const files=[...$('#files').files].slice(0,CONFIG.maxFiles);
+    const total=files.reduce((a,f)=>a+f.size,0);
+    if(total>CONFIG.maxUploadMB*1024*1024) throw new Error(`자료 파일은 모두 합쳐 ${CONFIG.maxUploadMB}MB 이하로 올려 주세요.`);
+    const uploads=await Promise.all(files.map(f=>new Promise((res,rej)=>{const r=new FileReader();r.onload=()=>res({name:f.name,mimeType:f.type,size:f.size,base64:String(r.result).split(',')[1]});r.onerror=rej;r.readAsDataURL(f);})));
+    // 1) 시트 접수 (기존 Apps Script)
+    if(CONFIG.submitUrl){
       const r=await fetch(CONFIG.submitUrl,{method:'POST',body:JSON.stringify({...lastRequest,uploads,website:$('#website').value})});
       const out=await r.json();
       if(!out.ok) throw new Error(out.error==='too_large'?'자료 파일 용량이 너무 큽니다.':'접수 중 문제가 생겼습니다.');
-      window.WingkeyAnalytics?.track('generate_lead',{service:'book',book_type:lastProfile.type});
-    }catch(err){ btn.disabled=false; msg.textContent=''; alert((err&&err.message)||'접수 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.'); return; }
-    btn.disabled=false; msg.textContent='';
-  } else {
-    try{ const q=JSON.parse(localStorage.getItem('wk_custom_book_requests')||'[]'); q.push(lastRequest); localStorage.setItem('wk_custom_book_requests',JSON.stringify(q)); }catch(_){}
-  }
-  if(CONFIG.submitUrl) $('#dlWrap').style.display='none';
-  $('#reqId').textContent=lastRequest.requestId;
-  const o=lastRequest.order; $('#doneTotal').textContent = o.total==null ? '상담 후 안내' : won(o.total);
-  const st = o.plan==='jikup'
-    ? [['직업스픽 수강 등록 접수','입력한 정보와 목차가 교재팀에 전달됐습니다.'],['상담·결제','담당자가 수업료와 일정을 안내하고 결제를 확인합니다.'],['맞춤교재 PDF 전달',`${esc(em)}으로 윙키클래스북 교재 PDF(수업용 초판)를 보내 드립니다.`],['수업하며 완성','원어민 튜터와 주 3회 수업하며 고칠 곳을 바로잡아 완성본으로 다듬습니다.']]
-    : [['주문 접수','입력한 정보와 목차가 교재팀에 전달됐습니다.'],['결제 안내·확인','담당자가 휴대폰으로 결제 방법을 안내합니다.'],['맞춤교재 PDF 전달 (24~48시간)',`결제 확인 후 24~48시간 안에 ${esc(em)}으로 보내 드립니다. 빠르게 만든 초안이며 원어민 감수 전 교재입니다.`],['원어민 교정 (선택)','화상수업에서 원어민 강사에게 교정을 받고, 고친 내용을 정리해 보내 주시면 수정본을 추후 보내 드립니다.']]
-      .concat(o.addon?[['화상수업 개설',`관리자가 윙키(${esc(o.addon.wingkeyId)})에 50분 수업 4회를 만들어 알려 드립니다. 시작 ${esc(o.addon.start)} · ${esc(o.addon.time)} · ${esc(o.addon.days.join('·'))}`]]:[]);
-  $('#doneSteps').innerHTML = st.map(([t,d],i)=>`<li class="${i?'':'on'}"><b>${i+1}</b><div><strong>${t}</strong><br><small>${d}</small></div></li>`).join('');
-  $('#doneGuide').hidden=lastProfile.type!=='industry'; $('#register').style.display='none'; $('#done').style.display='block'; $('#done').scrollIntoView();
+    }
+    window.WingkeyAnalytics?.track('generate_lead',{service:'book',book_type:lastProfile.type});
+    // 2) 직업스픽(상담 후 결제)이면 결제 없이 완료 화면
+    if(o.plan==='jikup' || o.total==null){
+      btn.disabled=false; msg.textContent='';
+      $('#dlWrap').style.display='none';
+      $('#reqId').textContent=lastRequest.requestId;
+      $('#doneTotal').textContent='상담 후 안내';
+      const st=[['직업스픽 수강 등록 접수','입력한 정보와 목차가 교재팀에 전달됐습니다.'],['상담·결제','담당자가 수업료와 일정을 안내하고 결제를 확인합니다.'],['맞춤교재 PDF 전달',`${esc(em)}으로 윙키클래스북 교재 PDF(수업용 초판)를 보내 드립니다.`],['수업하며 완성','원어민 튜터와 주 3회 수업하며 고칠 곳을 바로잡아 완성본으로 다듬습니다.']];
+      $('#doneSteps').innerHTML = st.map(([t,d],i)=>`<li class="${i?'':'on'}"><b>${i+1}</b><div><strong>${t}</strong><br><small>${d}</small></div></li>`).join('');
+      $('#doneGuide').hidden=lastProfile.type!=='industry'; $('#register').style.display='none'; $('#done').style.display='block'; $('#done').scrollIntoView();
+      return;
+    }
+    // 3) PG 결제 주문 생성 → 결제 페이지 이동
+    msg.textContent='결제 페이지로 이동합니다…';
+    const sku=SKU_MAP[lastProfile.type];
+    const apiBody={
+      requestId: lastRequest.requestId,
+      source: 'classbook',
+      bookSku: sku,
+      buyer: { name: lastRequest.learner.name, phone: ph, email: em },
+      agreements: { privacy: true, customMade: true, agreedAt: new Date().toISOString() },
+      metadata: { type: lastProfile.type, category: lastProfile.category, sheet: lastRequest.sheet, toc: lastRequest.toc },
+    };
+    if(o.addon) apiBody.addon = { sku:'CB-LESSON-50x4', start:o.addon.start, time:o.addon.time, days:o.addon.days, wingkeyId:o.addon.wingkeyId };
+    const apiRes = await fetch(CONFIG.apiUrl, {
+      method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(apiBody)
+    });
+    const apiOut = await apiRes.json();
+    if(!apiOut.success) throw new Error(apiOut.error?.message || '주문 생성에 실패했습니다.');
+    location.href = apiOut.data.payUrl;
+    return;
+  }catch(err){ btn.disabled=false; msg.textContent=''; alert((err&&err.message)||'접수 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.'); return; }
 });
 $('#dlReq').addEventListener('click',()=>{
   const b=new Blob([JSON.stringify(lastRequest,null,2)],{type:'application/json'});

@@ -198,7 +198,7 @@ footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(-
 <footer><div class="wrap">윙키클래스북(WINGKEY CLASSBOOK) · 발행 주식회사 윙키<br>(주)윙키 | 대표 이승효 | 사업자등록번호 277-88-02038 | 통신판매업 신고번호 2023-서울금천-0471<br>주소 서울 금천구 가산디지털1로 83 (가산동, 파트너스타워) 201-S17호 | 전화 02-757-1466 | 이메일 info@wingkey.kr · <a href="https://wingkey.kr/terms">이용약관</a> · <a href="https://wingkey.kr/privacy">개인정보처리방침</a></div></footer>
 <script>
 // 가격: 기본 10장 포함, 10장을 넘으면 1장마다 추가. PPTX도 장 수에 맞춰 올라간다.
-const CONFIG = { submitUrl: 'https://script.google.com/macros/s/AKfycbxp37hEXDt7FmGj5ejwixyBeNazD3Cxgp0j7ApWzsUpB6gTtW78ZkfZXbzLmK3uO5qV/exec', included: 10, price: { ko: 49000, kozh: 79000 }, perPage: { ko: 4900, kozh: 7900 }, pptx: { ko: 20000, kozh: 30000 }, pptxPerPage: { ko: 2000, kozh: 3000 }, maxUploadMB: 25, maxFiles: 19 };
+const CONFIG = { submitUrl: 'https://script.google.com/macros/s/AKfycbxp37hEXDt7FmGj5ejwixyBeNazD3Cxgp0j7ApWzsUpB6gTtW78ZkfZXbzLmK3uO5qV/exec', apiUrl: 'https://api.wingkey.kr/api/v1/classbook/orders', included: 10, price: { ko: 49000, kozh: 79000 }, perPage: { ko: 4900, kozh: 7900 }, pptx: { ko: 20000, kozh: 30000 }, pptxPerPage: { ko: 2000, kozh: 3000 }, maxUploadMB: 25, maxFiles: 19 };
 const EXTRAS = ['연혁', '팀·조직 소개', '인증·특허·수상', '제품 라인업 상세', '고객 사례', '공장·설비', '해외 진출·수출 실적', '자주 묻는 질문', '오시는 길'];
 function pages() { return plan().filter(s => s.on).length; }
 function quote() {
@@ -293,10 +293,22 @@ $('#order').addEventListener('submit', async (e) => {
     const uploads = await Promise.all(files.map(f => new Promise((res, rej) => { const r = new FileReader(); r.onload = () => res({ name: f._n || f.name, mimeType: f.type, size: f.size, base64: String(r.result).split(',')[1] }); r.onerror = rej; r.readAsDataURL(f); })));
     const r = await fetch(CONFIG.submitUrl, { method: 'POST', body: JSON.stringify({ ...req, uploads, website: $('#website2').value }) });
     const out = await r.json(); if (!out.ok) throw new Error(out.error === 'too_large' ? '자료 파일 용량이 너무 큽니다.' : '접수 중 문제가 생겼습니다.');
+    // PG 결제 주문 생성 → 결제 페이지 이동
+    $('#msg').textContent = '결제 페이지로 이동합니다…';
+    const deckSku = lang === 'kozh' ? 'CB-DECK-KOZH' : 'CB-DECK-KO';
+    const apiBody = {
+      requestId: req.requestId, source: 'classbook-deck', bookSku: deckSku, amount: price,
+      buyer: { name: v('name'), phone: v('phone'), email: v('email') },
+      agreements: { privacy: true, customMade: true, agreedAt: new Date().toISOString() },
+      metadata: { type: 'deck', company: deck.company, industry: deck.industry, reader: READERS[reader], sheet: req.sheet, pages: Q },
+    };
+    const apiRes = await fetch(CONFIG.apiUrl, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(apiBody) });
+    const apiOut = await apiRes.json();
+    if (!apiOut.success) throw new Error(apiOut.error?.message || '주문 생성에 실패했습니다.');
+    window.WingkeyAnalytics?.track('generate_lead',{service:'deck'});
+    location.href = apiOut.data.payUrl;
+    return;
   } catch (err) { btn.disabled = false; $('#msg').textContent = ''; alert((err && err.message) || '접수 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.'); return; }
-  window.WingkeyAnalytics?.track('generate_lead',{service:'deck'});
-  $('#reqId').textContent = req.requestId; $('#doneTotal').textContent = won(price);
-  $('#order').style.display = 'none'; $('#done').style.display = 'block'; $('#done').scrollIntoView();
 });
 </script>
 <script>document.querySelector('#order').addEventListener('focusin',()=>window.WingkeyAnalytics?.track('order_start',{service:'deck',placement:'form_focus'}));</script>
