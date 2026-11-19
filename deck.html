@@ -55,7 +55,7 @@ input:focus,select:focus,textarea:focus{outline:2px solid #F97316;border-color:t
 .toc{counter-reset:s;list-style:none;padding:0;margin:0;display:grid;grid-template-columns:1fr 1fr;gap:8px}.toc li{background:var(--lg);border-radius:10px;padding:10px 12px;font-size:calc(14px + var(--wk-mobile-font-bump,0px))}
 .toc li:before{counter-increment:s;content:counter(s,decimal-leading-zero);color:var(--or);font-weight:800;margin-right:8px}.toc li.off{opacity:.45;text-decoration:line-through}
 .total{display:flex;justify-content:space-between;align-items:center;background:var(--nv);color:#fff;border-radius:12px;padding:14px 18px;margin:14px 0;font-size:calc(15px + var(--wk-mobile-font-bump,0px))}.total b{font-size:calc(22px + var(--wk-mobile-font-bump,0px))}
-.btn{display:inline-block;border:0;border-radius:12px;padding:14px 22px;font-size:calc(16px + var(--wk-mobile-font-bump,0px));font-weight:700;cursor:pointer;background:var(--or);color:#fff}.btn:disabled{opacity:.6}
+.btn{display:inline-block;border:0;border-radius:12px;padding:14px 22px;font-size:calc(16px + var(--wk-mobile-font-bump,0px));font-weight:700;cursor:pointer;background:var(--or);color:#fff}.btn:disabled{opacity:.6}.btn[hidden]{display:none}
 #done{display:none}.steps{list-style:none;padding:0;display:grid;gap:10px}.steps li{display:flex;gap:12px;background:var(--lg);border-radius:12px;padding:14px}
 .steps b{background:var(--or);color:#fff;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;flex:none}
 details{border-bottom:1px solid var(--bd);padding:14px 0}summary{font-weight:700;cursor:pointer}
@@ -159,7 +159,7 @@ footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(-
 </div>
 
 <div class="card">
-  <h2>7. 주문하기</h2><p class="desc">회원가입 없이 주문할 수 있어요. 담당자가 결제 방법을 휴대폰으로 안내하고, 결제가 확인되면 24~48시간 안에 이메일로 보내 드립니다.</p>
+  <h2>7. 주문하기</h2><p class="desc">회원가입 없이 주문할 수 있어요. 주문 화면에서 바로 결제할 수 있고, 결제가 확인되면 24~48시간 안에 이메일로 보내 드립니다. 결제 화면을 열기 어려우면 담당자가 휴대폰으로 안내합니다.</p>
   <div class="total"><span>결제 예정 금액</span><b id="total"></b></div>
   <div class="grid">
     <div data-req="name"><label class="f" for="name">주문자 이름<span class="req">*</span></label><input id="name" autocomplete="name"><div class="err">이름을 입력해 주세요.</div></div>
@@ -177,10 +177,12 @@ footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(-
 <div id="lb" class="lb" hidden><div class="lbin"><button type="button" class="lbx" id="lbx" aria-label="닫기">×</button><h3 id="lbt"></h3><div class="lbimgs" id="lbimgs"></div><p class="lbp"><a id="lbko" target="_blank" rel="noopener">한국어 PDF 전체 ↗</a> <a id="lbzh" target="_blank" rel="noopener">中文 PDF 全部 ↗</a> <button type="button" class="btn" id="lbgo">이 구성으로 맞춤 제작</button></p></div></div>
 <section id="done" class="card">
   <h2>주문이 접수됐습니다</h2>
-  <p>주문 번호 <b id="reqId"></b> · 결제 예정 금액 <b id="doneTotal"></b> · 담당자가 입력하신 휴대폰으로 결제 방법을 안내드립니다.</p>
+  <p>주문 번호 <b id="reqId"></b> · 결제 예정 금액 <b id="doneTotal"></b> <span id="donePayHint"></span></p>
+  <p style="margin:6px 0 14px"><a class="btn" id="payBtn" href="#" hidden>결제 페이지로 이동</a></p>
+  <p class="desc" id="payNote" hidden style="color:var(--or);margin:0 0 14px"></p>
   <ol class="steps">
     <li><b>1</b><div><strong>주문 접수</strong><br><small>입력한 회사 정보가 제작팀에 전달됐습니다.</small></div></li>
-    <li><b>2</b><div><strong>결제 안내·확인</strong><br><small>담당자가 휴대폰으로 결제 방법을 안내합니다.</small></div></li>
+    <li><b>2</b><div><strong>결제</strong><br><small>결제 페이지에서 카드·간편결제로 결제합니다. 결제 화면을 열기 어려우면 담당자가 휴대폰으로 안내합니다.</small></div></li>
     <li><b>3</b><div><strong>PDF 전달 (24~48시간)</strong><br><small>결제 확인 후 24~48시간 안에 PDF(편집용 PPTX를 고르셨으면 함께)를 이메일로 보내 드립니다. 빠르게 만든 초안이며 원어민 감수 전입니다.</small></div></li>
     <li><b>4</b><div><strong>원어민 교정 (선택)</strong><br><small>화상수업에서 원어민 강사에게 교정을 받고, 고친 내용을 보내 주시면 수정본을 추후 보내 드립니다.</small></div></li>
   </ol>
@@ -198,7 +200,7 @@ footer{border-top:1px solid var(--bd);margin-top:48px;padding:26px 0;color:var(-
 <footer><div class="wrap">윙키클래스북(WINGKEY CLASSBOOK) · 발행 주식회사 윙키<br>(주)윙키 | 대표 이승효 | 사업자등록번호 277-88-02038 | 통신판매업 신고번호 2023-서울금천-0471<br>주소 서울 금천구 가산디지털1로 83 (가산동, 파트너스타워) 201-S17호 | 전화 02-757-1466 | 이메일 info@wingkey.kr · <a href="https://wingkey.kr/terms">이용약관</a> · <a href="https://wingkey.kr/privacy">개인정보처리방침</a></div></footer>
 <script>
 // 가격: 기본 10장 포함, 10장을 넘으면 1장마다 추가. PPTX도 장 수에 맞춰 올라간다.
-const CONFIG = { submitUrl: 'https://script.google.com/macros/s/AKfycbxp37hEXDt7FmGj5ejwixyBeNazD3Cxgp0j7ApWzsUpB6gTtW78ZkfZXbzLmK3uO5qV/exec', included: 10, price: { ko: 49000, kozh: 79000 }, perPage: { ko: 4900, kozh: 7900 }, pptx: { ko: 20000, kozh: 30000 }, pptxPerPage: { ko: 2000, kozh: 3000 }, maxUploadMB: 25, maxFiles: 19 };
+const CONFIG = { submitUrl: 'https://script.google.com/macros/s/AKfycbxp37hEXDt7FmGj5ejwixyBeNazD3Cxgp0j7ApWzsUpB6gTtW78ZkfZXbzLmK3uO5qV/exec', apiUrl: 'https://api.wingkey.kr/api/v1', deckSku: 'CB-DECK-BASIC', included: 10, price: { ko: 49000, kozh: 79000 }, perPage: { ko: 4900, kozh: 7900 }, pptx: { ko: 20000, kozh: 30000 }, pptxPerPage: { ko: 2000, kozh: 3000 }, maxUploadMB: 25, maxFiles: 19 };
 const EXTRAS = ['연혁', '팀·조직 소개', '인증·특허·수상', '제품 라인업 상세', '고객 사례', '공장·설비', '해외 진출·수출 실적', '자주 묻는 질문', '오시는 길'];
 function pages() { return plan().filter(s => s.on).length; }
 function quote() {
@@ -267,6 +269,19 @@ function refresh() {
 }
 document.addEventListener('input', refresh); document.addEventListener('change', refresh); refresh();
 const UTM = new URLSearchParams(location.search);
+// 주문서를 backend-api 로 보내 결제 주문을 만든다. 금액은 서버가 옵션(언어·장수·PPTX)으로 다시 계산한다.
+async function startPayment(req, options){
+  if(!CONFIG.apiUrl) return null;
+  const body={ requestId:req.requestId, source:'classbook-deck',
+    utm:{ utm_source:req.source.utm_source||'', ref:req.source.ref||'' },
+    bookSku:CONFIG.deckSku, options,
+    buyer:{ name:req.learner.name, phone:req.learner.phone, email:req.learner.email },
+    agreements:{ privacy:true, customMade:true, agreedAt:new Date().toISOString() } };
+  const r=await fetch(CONFIG.apiUrl+'/classbook/orders',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});
+  let out=null; try{ out=await r.json(); }catch(_){}
+  if(!r.ok||!out||!out.success) throw new Error((out&&out.error&&out.error.message)||'결제 페이지를 준비하지 못했습니다.');
+  return out.data;
+}
 $('#order').addEventListener('submit', async (e) => {
   e.preventDefault();
   const need = { company: !!v('company'), industry: !!v('industry'), oneLine: !!v('oneLine'), name: !!v('name'), phone: /^[0-9+\-\s]{9,}$/.test(v('phone')), email: /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v('email')), agreePrivacy: $('#agreePrivacy').checked, agreeCustom: $('#agreeCustom').checked };
@@ -274,6 +289,8 @@ $('#order').addEventListener('submit', async (e) => {
   if (!services().length) { alert('서비스·제품을 1개 이상 적어 주세요.'); ok = false; }
   if (!ok) { document.querySelector('.invalid')?.scrollIntoView({ block: 'center' }); return; }
   const lang = radio('lang'), Q = quote(), price = Q.total, reader = radio('reader'), wantPptx = $('#pptx').checked;
+  // 서버 가격 계산에 넘길 옵션 (금액은 넘기지 않는다)
+  const payOptions = { lang, pageCount: Q.pages, includePptx: wantPptx };
   const images = SLOTS.map(([k, t]) => ({ slot: k, label: t, file: ($('#img_' + k).files[0] || {}).name || '', desc: v('imgDesc_' + k) })).filter(x => x.file || x.desc).concat(extraImages());
   const deck = { theme: radio('theme'), pptx: wantPptx, pages: Q.pages, extraPages: extrasList(), extraNotes: v('extraNotes'), images, logoFile: ($('#logoFile').files[0] || {}).name || '', reader, readerLabel: READERS[reader], langs: lang === 'kozh' ? ['ko', 'zh'] : ['ko'], company: v('company'), companyZh: v('companyZh'), industry: v('industry'), website: v('website'), oneLine: v('oneLine'), problems: lines('problem'), services: services(), diff: lines('diff'), numbers: lines('numbers'), clients: $('#clientsOk').checked ? v('clients') : '', clientsAllowed: $('#clientsOk').checked, process: lines('process'), founded: v('founded'), address: v('address'), contactName: v('contactName'), contactInfo: v('contactInfo'), accent: v('accent') };
   const toc = plan().map((s, i) => ({ no: i + 1, title: s.t, zh: '', selected: s.on, custom: false }));
@@ -295,7 +312,20 @@ $('#order').addEventListener('submit', async (e) => {
     const out = await r.json(); if (!out.ok) throw new Error(out.error === 'too_large' ? '자료 파일 용량이 너무 큽니다.' : '접수 중 문제가 생겼습니다.');
   } catch (err) { btn.disabled = false; $('#msg').textContent = ''; alert((err && err.message) || '접수 중 문제가 생겼습니다. 잠시 후 다시 시도해 주세요.'); return; }
   window.WingkeyAnalytics?.track('generate_lead',{service:'deck'});
-  $('#reqId').textContent = req.requestId; $('#doneTotal').textContent = won(price);
+  // 접수는 끝났다. 결제 주문을 만들어 결제 페이지로 보낸다.
+  let payment=null, payError='';
+  try{ payment=await startPayment(req, payOptions); }catch(err){ payError=(err&&err.message)||'결제 페이지를 준비하지 못했습니다.'; }
+  btn.disabled=false; $('#msg').textContent='';
+  $('#reqId').textContent = req.requestId; $('#doneTotal').textContent = won(payment ? payment.amount : price);
+  if(payment){
+    const payBtn=$('#payBtn'); payBtn.hidden=false; payBtn.href=payment.payUrl; payBtn.textContent=`결제 페이지에서 결제하기 (${won(payment.amount)})`;
+    $('#donePayHint').textContent='· 결제 페이지에서 결제를 마치면 제작을 시작합니다.';
+    $('#payNote').hidden=true; $('#payNote').textContent='';
+  } else {
+    $('#donePayHint').textContent='· 담당자가 입력하신 휴대폰으로 결제 방법을 안내드립니다.';
+    $('#payNote').hidden=!payError;
+    $('#payNote').textContent=payError ? `결제 페이지를 열지 못했습니다(${payError}). 접수는 정상적으로 끝났으니 담당자 안내로 결제하셔도 됩니다.` : '';
+  }
   $('#order').style.display = 'none'; $('#done').style.display = 'block'; $('#done').scrollIntoView();
 });
 </script>
